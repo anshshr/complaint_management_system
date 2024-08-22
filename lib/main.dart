@@ -1,4 +1,4 @@
-import 'package:complaint_management_system/presentation/screens/home_page.dart';
+import 'package:complaint_management_system/components/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
