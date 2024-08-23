@@ -1,5 +1,6 @@
 import 'package:complaint_management_system/components/app/splash_screen.dart';
 import 'package:complaint_management_system/components/pages/home_page.dart';
+import 'package:complaint_management_system/components/pages/register_page.dart';
 import 'package:complaint_management_system/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

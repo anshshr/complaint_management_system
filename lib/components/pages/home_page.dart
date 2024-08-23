@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
               ),
             ],
             onTap: (index) {
-              _currentPage.value = index; // Update the current page
+              _currentPage.value = index;
               _pageController.jumpToPage(index);
             },
           );
@@ -68,7 +68,7 @@ class HomePage extends StatelessWidget {
       body: PageView(
         controller: _pageController,
         onPageChanged: (index) {
-          _currentPage.value = index; // Update the current page when swiping
+          _currentPage.value = index;
         },
         children: [
           Center(child: Text('Home Page')), // Replace with actual Home widget

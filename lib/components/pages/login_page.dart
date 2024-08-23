@@ -36,10 +36,10 @@ class _LoginPageState extends State<LoginPage> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-              Colors.lightBlueAccent[100]!,
-              Colors.lightBlueAccent[200]!,
-              Colors.lightBlueAccent[100]!,
-              Colors.lightBlueAccent[200]!,
+              Colors.red[100]!,
+              Colors.red[200]!.withOpacity(.1),
+              Colors.red[100]!.withOpacity(.2),
+              Colors.red[200]!,
             ])),
         child: Center(
           child: SingleChildScrollView(
