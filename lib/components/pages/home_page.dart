@@ -1,3 +1,4 @@
+import 'package:complaint_management_system/utils/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -7,8 +8,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('home page'),
+        title: const Text('Home page'),
       ),
+      drawer: CustomDrawer(),
       body: const Center(
         child: Text('Home page'),
       ),

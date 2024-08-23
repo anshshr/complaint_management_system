@@ -1,3 +1,4 @@
+import 'package:complaint_management_system/utils/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -39,7 +40,6 @@ class OtherServicesPage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text("Other Services"),
-        leading:const Icon(Icons.arrow_back),
         backgroundColor: Colors.blue,
         actions: [
           Padding(
@@ -48,9 +48,10 @@ class OtherServicesPage extends StatelessWidget {
           ),
         ],
       ),
+      drawer: CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child:  GridView.builder(
+        child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 16.0,
