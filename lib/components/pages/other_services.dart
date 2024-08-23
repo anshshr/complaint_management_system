@@ -2,18 +2,9 @@ import 'package:complaint_management_system/utils/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-void _launchURL(String url) async {
-  if (await canLaunchUrl(Uri.parse(url))) {
-    await launchUrl(Uri.parse(url));
-  } else {
-    throw 'Could not launch $url';
-  }
-}
-
 class Category {
   final String name;
   final String imagePath;
-
   final String url;
 
   Category(this.name, this.imagePath, this.url);
@@ -34,6 +25,14 @@ class OtherServicesPage extends StatelessWidget {
     Category("UTS Ticketing", "assets/logo/uts.png",
         "https://www.utsonmobile.indianrail.gov.in"),
   ];
+
+  Future<void> _launchURL(String url) async {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +60,9 @@ class OtherServicesPage extends StatelessWidget {
           itemCount: categories.length,
           itemBuilder: (context, index) {
             return GestureDetector(
-              onTap: () => _launchURL(categories[index].url),
+              onTap: () {
+                _launchURL(categories[index].url);
+              },
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
