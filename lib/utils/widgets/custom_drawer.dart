@@ -2,6 +2,7 @@ import 'package:complaint_management_system/components/pages/home_page.dart';
 import 'package:complaint_management_system/components/pages/other_services.dart';
 import 'package:complaint_management_system/services/auth/auth.dart';
 import 'package:flutter/material.dart';
+//TODO : use this custom drawer in every page for navigation and maintaining the design by @ansh
 
 class CustomDrawer extends StatelessWidget {
   CustomDrawer({super.key});
@@ -43,7 +44,7 @@ class CustomDrawer extends StatelessWidget {
               onTap: () => Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const HomePage(),
+                  builder: (context) =>  HomePage(),
                 ),
                 (route) => false,
               ),
