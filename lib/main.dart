@@ -1,4 +1,6 @@
+// import 'package:complaint_management_system/components/pages/home_page.dart';
 import 'package:complaint_management_system/components/pages/home_page.dart';
+import 'package:complaint_management_system/components/pages/other_services.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: HomePage(),
     );
   }
 }
