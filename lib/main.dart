@@ -1,7 +1,11 @@
-import 'package:complaint_management_system/components/pages/home_page.dart';
+import 'package:complaint_management_system/components/pages/register_page.dart';
+import 'package:complaint_management_system/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -17,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home:  const RegisterPage(),
     );
   }
 }

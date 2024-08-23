@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'complaint-management-sys-87685.appspot.com',
     measurementId: 'G-K0W7P2VWNW',
   );
+
 }
