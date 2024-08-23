@@ -38,11 +38,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-              Colors.blue[100]!,
-              Colors.blue[200]!,
-              Colors.blue[100]!,
-              Colors.blue[300]!,
-              Colors.blue[100]!,
+              Colors.red[100]!,
+              Colors.redAccent[100]!,
+              Colors.redAccent[100]!.withOpacity(.6),
+              Colors.redAccent[100]!,
             ])),
         child: Center(
           child: SingleChildScrollView(
