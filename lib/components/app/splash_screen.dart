@@ -37,16 +37,26 @@ class _SplashScreenState extends State<SplashScreen> {
             Text(
               'Rail Madad',
               style: TextStyle(
-                fontSize: 26.0,
+                fontSize: 24.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.blue,
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 6),
+            Text(
+              '(Register My Complaint)',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(height: 6),
             Text(
               'भारतीय रेल',
               style: TextStyle(
-                fontSize: 26.0,
+                fontSize: 24.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
