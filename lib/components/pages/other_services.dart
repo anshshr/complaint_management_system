@@ -38,8 +38,8 @@ class OtherServicesPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Other Services"),
-        leading: Icon(Icons.arrow_back),
+        title: const Text("Other Services"),
+        leading:const Icon(Icons.arrow_back),
         backgroundColor: Colors.blue,
         actions: [
           Padding(
@@ -50,7 +50,7 @@ class OtherServicesPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: GridView.builder(
+        child:  GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 16.0,
