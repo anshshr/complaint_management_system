@@ -39,12 +39,16 @@ class OtherServicesPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Other Services"),
-        backgroundColor: Colors.blue,
+        title: const Text(
+          "Other Services",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: const Color.fromARGB(255, 69, 155, 225),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Image.asset('assets/logo/irctcenq.png'),
+            child: Image.asset('assets/logo/indianrail.png',
+                width: 50, height: 50),
           ),
         ],
       ),
