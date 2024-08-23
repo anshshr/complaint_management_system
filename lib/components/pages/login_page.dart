@@ -157,15 +157,17 @@ class _LoginPageState extends State<LoginPage> {
                         if (pref.getString('error') == null ||
                             pref.getString('error') == '') {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>  HomePage(),
-                              ));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  HomePage(username: username.text),
+                            ),
+                          );
                         } else {
                           customDialog(context, pref.getString('error')!);
                         }
                       } else {
-                        //dialog to show please fill all the details
+                        // Show a dialog to request the user to fill all the details
                         customDialog(context, "Please Fill all the Details");
                       }
                     },

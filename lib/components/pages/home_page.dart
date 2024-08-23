@@ -4,17 +4,32 @@ import 'package:complaint_management_system/utils/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
+  final String username;
+
+  HomePage({super.key, required this.username});
+
   final PageController _pageController = PageController();
   final ValueNotifier<int> _currentPage = ValueNotifier<int>(0);
+
+  final List<String> _pageTitles = [
+    'Home Page',
+    'Complaint Page',
+    'Feedback Page',
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home page'),
+        title: ValueListenableBuilder<int>(
+          valueListenable: _currentPage,
+          builder: (context, pageIndex, child) {
+            return Text(_pageTitles[pageIndex]);
+          },
+        ),
+        backgroundColor: const Color.fromARGB(255, 69, 155, 225),
       ),
-      drawer: CustomDrawer(),
+      drawer: CustomDrawer(username: username), // Pass username to CustomDrawer
       bottomNavigationBar: ValueListenableBuilder<int>(
         valueListenable: _currentPage,
         builder: (context, pageIndex, child) {
@@ -55,12 +70,10 @@ class HomePage extends StatelessWidget {
         onPageChanged: (index) {
           _currentPage.value = index; // Update the current page when swiping
         },
-        children:  [
-          Center(
-              child: Text(
-                  'Home Page')), // Replace HomePage with a different widget
+        children: [
+          Center(child: Text('Home Page')), // Replace with actual Home widget
           Complaint(),
-          FeedbackPage(),
+          FeedbackPage(username: username), // Pass username to FeedbackPage
         ],
       ),
     );

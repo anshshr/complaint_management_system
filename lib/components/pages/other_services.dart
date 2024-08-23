@@ -11,6 +11,7 @@ class Category {
 }
 
 class OtherServicesPage extends StatelessWidget {
+  final String username; // Added username
   final List<Category> categories = [
     Category(
         "Ticket Booking", "assets/logo/irctc.png", "https://www.irctc.co.in"),
@@ -26,9 +27,13 @@ class OtherServicesPage extends StatelessWidget {
         "https://www.utsonmobile.indianrail.gov.in"),
   ];
 
+  OtherServicesPage(
+      {super.key, required this.username}); // Constructor to pass username
+
   Future<void> _launchURL(String url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
       throw 'Could not launch $url';
     }
@@ -52,11 +57,13 @@ class OtherServicesPage extends StatelessWidget {
           ),
         ],
       ),
-      drawer: CustomDrawer(),
+      drawer: CustomDrawer(
+        username: username, // Pass username to the drawer
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 16.0,
             mainAxisSpacing: 16.0,
@@ -91,9 +98,10 @@ class OtherServicesPage extends StatelessWidget {
                         child: Text(
                           categories[index].name,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.blue,
                             fontSize: 13.0,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
