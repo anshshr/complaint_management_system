@@ -9,7 +9,9 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('home page'),
       ),
-      body:const Center(child:  Text('Home page'),),
+      body: const Center(
+        child: Text('Home page'),
+      ),
     );
   }
 }
