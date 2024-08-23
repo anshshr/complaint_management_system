@@ -1,8 +1,12 @@
+import 'package:complaint_management_system/components/pages/complaint.dart';
+import 'package:complaint_management_system/components/pages/feedback.dart';
 import 'package:complaint_management_system/utils/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+  final PageController _pageController = PageController();
+  final ValueNotifier<int> _currentPage = ValueNotifier<int>(0);
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +15,53 @@ class HomePage extends StatelessWidget {
         title: const Text('Home page'),
       ),
       drawer: CustomDrawer(),
-      body: const Center(
-        child: Text('Home page'),
+      bottomNavigationBar: ValueListenableBuilder<int>(
+        valueListenable: _currentPage,
+        builder: (context, pageIndex, child) {
+          return BottomNavigationBar(
+            currentIndex: pageIndex,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  color: Colors.black87,
+                ),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.compass_calibration,
+                  color: Colors.black87,
+                ),
+                label: 'Complaint',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.feedback,
+                  color: Colors.black87,
+                ),
+                label: 'Feedback',
+              ),
+            ],
+            onTap: (index) {
+              _currentPage.value = index; // Update the current page
+              _pageController.jumpToPage(index);
+            },
+          );
+        },
+      ),
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          _currentPage.value = index; // Update the current page when swiping
+        },
+        children:  [
+          Center(
+              child: Text(
+                  'Home Page')), // Replace HomePage with a different widget
+          Complaint(),
+          FeedbackPage(),
+        ],
       ),
     );
   }
