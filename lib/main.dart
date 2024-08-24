@@ -1,11 +1,11 @@
-import 'package:complaint_management_system/components/app/splash_screen.dart';
 import 'package:complaint_management_system/components/pages/home_page.dart';
-import 'package:complaint_management_system/components/pages/register_page.dart';
 import 'package:complaint_management_system/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 
 void main() async {
+   Gemini.init(apiKey: 'AIzaSyDi4t3C0UUeZArtyQiAO6alqKgwYc5JHio');
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
@@ -23,7 +23,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
         useMaterial3: true,
       ),
-      home: SplashScreen(),
+      home: HomePage(
+        username: 'Ansh shrivastav',
+      ),
       debugShowCheckedModeBanner: false,
     );
   }

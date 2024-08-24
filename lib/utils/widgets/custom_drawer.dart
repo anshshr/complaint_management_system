@@ -1,5 +1,6 @@
 import 'package:complaint_management_system/components/pages/home_page.dart';
 import 'package:complaint_management_system/components/pages/other_services.dart';
+import 'package:complaint_management_system/components/pages/training%20and%20support/Departent.dart';
 import 'package:complaint_management_system/services/auth/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class CustomDrawer extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          SizedBox(
+          const SizedBox(
             height: 70,
             width: 70,
             child: CircleAvatar(
@@ -63,6 +64,25 @@ class CustomDrawer extends StatelessWidget {
               ),
               (route) => false,
             ),
+          ),
+          ListTile(
+            contentPadding: const EdgeInsets.only(left: 40, top: 10),
+            leading: const Icon(
+              Icons.business,
+              color: Colors.black,
+              size: 26,
+            ),
+            title: const Text(
+              'D E P A R T M E N T S',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Department(),
+                  ));
+            },
           ),
           ListTile(
             contentPadding: const EdgeInsets.only(left: 40, top: 10),
