@@ -58,35 +58,31 @@ class Department extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: const Text(
+          'Railway Departments',
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 20,
+          ),
+        ),
+        backgroundColor: Colors.red[100],
+      ),
       drawer: const Drawer(),
       body: Container(
-        padding: const EdgeInsets.only(top: 40),
         height: double.infinity,
         width: double.infinity,
         color: Colors.red[100],
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  const Text(
-                    'Railway Departments',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisSpacing: 10,

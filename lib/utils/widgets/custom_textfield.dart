@@ -24,45 +24,54 @@ class CustomTextfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      keyboardType: textInputType,
-      onSubmitted: onsubmitted,
-      decoration: InputDecoration(
+    return Material(
+      elevation: 2.0, // Adds a subtle shadow
+      borderRadius: BorderRadius.circular(15.0),
+      child: TextField(
+        controller: controller,
+        keyboardType: textInputType,
+        onSubmitted: onsubmitted,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
           hintStyle: const TextStyle(
               fontWeight: FontWeight.normal,
               fontSize: 15,
-              color: Colors.black87),
+              color: Colors.black54),
           labelStyle: const TextStyle(
               fontWeight: FontWeight.normal,
               fontSize: 15,
               color: Colors.black87),
-          border: const UnderlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: const BorderSide(
+              color: Colors.transparent, // Removes border
+              width: 0,
             ),
           ),
-          enabledBorder: const UnderlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: const BorderSide(
+              color: Colors.transparent, // Removes border
+              width: 0,
             ),
           ),
-          focusedBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            borderSide: BorderSide(
-                color: Colors.black87, width: 1, style: BorderStyle.solid),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: const BorderSide(
+              color: Colors.blueAccent, // Blue border when focused
+              width: 1.5,
+            ),
           ),
           suffixIcon: suffixicon,
           prefixIcon: prefixicon,
           hintText: hinttext,
           labelText: labeltext,
           contentPadding:
-              const EdgeInsets.only(top: 10, left: 10, right: 3, bottom: 5)),
-      obscureText: obscurePassword,
+              const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        ),
+        obscureText: obscurePassword,
+      ),
     );
   }
 }

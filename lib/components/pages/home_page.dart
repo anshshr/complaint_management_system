@@ -24,7 +24,10 @@ class HomePage extends StatelessWidget {
         title: ValueListenableBuilder<int>(
           valueListenable: _currentPage,
           builder: (context, pageIndex, child) {
-            return Text(_pageTitles[pageIndex]);
+            return Text(
+              _pageTitles[pageIndex],
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            );
           },
         ),
         backgroundColor: const Color.fromARGB(255, 69, 155, 225),

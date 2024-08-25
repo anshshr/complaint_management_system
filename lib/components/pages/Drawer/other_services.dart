@@ -46,7 +46,7 @@ class OtherServicesPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           "Other Services",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
         ),
         backgroundColor: const Color.fromARGB(255, 69, 155, 225),
         actions: [
