@@ -44,6 +44,12 @@ dependencies:
   share_plus: ^10.0.0
   flutter_gemini: ^2.0.5
   http: ^1.2.2
+  file_picker: ^8.0.7
+  speech_to_text: ^6.6.2
+  google_speech: ^5.3.0
+  permission_handler: ^11.3.1
+ 
+ 
 
 dev_dependencies:
   flutter_test:
@@ -73,7 +79,7 @@ flutter:
      - assets/icons/
      - assets/emojis/
      - assets/logo/
-    
+     - assets/service.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
