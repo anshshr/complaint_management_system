@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
     
     <application
-        android:label="complaint_management_system"
+        android:label="Rail Madad"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
