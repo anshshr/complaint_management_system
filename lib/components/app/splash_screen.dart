@@ -1,3 +1,4 @@
+import 'package:complaint_management_system/components/pages/Introductory_pages.dart';
 import 'package:complaint_management_system/components/pages/home_page.dart';
 import 'package:complaint_management_system/components/pages/other_services.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => IntroductoryPages()),
       );
     });
   }
