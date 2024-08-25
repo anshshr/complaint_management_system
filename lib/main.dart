@@ -25,6 +25,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: SplashScreen(),
+      // home: HomePage(
+      //   username: 'Ansh Shrivastav',
+      // ),
       debugShowCheckedModeBanner: false,
     );
   }

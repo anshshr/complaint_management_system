@@ -64,57 +64,59 @@ class Department extends StatelessWidget {
         height: double.infinity,
         width: double.infinity,
         color: Colors.red[100],
-        child: Column(
-          children: [
-            Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                const Text(
-                  'Railway Departments',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 1.0,
-                crossAxisCount: 2,
+                  const Text(
+                    'Railway Departments',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              itemCount: departments.length,
-              itemBuilder: (context, index) {
-                return departmentCard(
-                  departments[index],
-                  deptImages[index],
-                  () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Details(
-                          Deptname: departments[index],
+              const SizedBox(
+                height: 20,
+              ),
+              GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 1.0,
+                  crossAxisCount: 2,
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                itemCount: departments.length,
+                itemBuilder: (context, index) {
+                  return departmentCard(
+                    departments[index],
+                    deptImages[index],
+                    () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Details(
+                            Deptname: departments[index],
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ],
+                      );
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

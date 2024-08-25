@@ -71,9 +71,9 @@ class HomePage extends StatelessWidget {
           _currentPage.value = index;
         },
         children: [
-          Center(child: Text('Home Page')), // Replace with actual Home widget
+          Center(child: Text('Home Page')),
           Complaint(),
-          FeedbackPage(username: username), // Pass username to FeedbackPage
+          FeedbackPage(username: username),
         ],
       ),
     );

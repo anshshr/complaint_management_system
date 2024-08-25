@@ -1,210 +1,50 @@
-import 'dart:convert';
+import 'package:complaint_management_system/components/pages/RailAnubhav.dart';
+import 'package:complaint_management_system/components/pages/Suggestion.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:http/http.dart' as http;
-import 'package:share_plus/share_plus.dart';
 
 class FeedbackPage extends StatefulWidget {
   final String username;
 
-  FeedbackPage({required this.username});
+  const FeedbackPage({Key? key, required this.username}) : super(key: key);
 
   @override
-  _FeedbackPageState createState() => _FeedbackPageState();
+  State<FeedbackPage> createState() => _FeedbackPageState();
 }
 
 class _FeedbackPageState extends State<FeedbackPage> {
-  double _rating = 4.0;
-  TextEditingController _reviewController = TextEditingController();
-  String sentiment = '';
-  bool _isLoading = false;
-
-  void _submitReview() async {
-    String reviewText = _reviewController.text.trim();
-
-    if (reviewText.isNotEmpty) {
-      setState(() {
-        _isLoading = true;
-      });
-
-      final url = Uri.https('models3.p.rapidapi.com', '/');
-      final queryParameters = {
-        'model_id': '27',
-        'prompt':
-            'Analyze review and provide an innovative response in exactly 10 words: $reviewText',
-      };
-      final headers = {
-        'Content-Type': 'application/json',
-        'X-RapidAPI-Key': 'cddc497c61msha056b75bbe92f88p1c3834jsn007efcd6ece0',
-        'X-RapidAPI-Host': 'models3.p.rapidapi.com',
-      };
-      final body = jsonEncode({
-        'key1': 'value',
-        'key2': 'value',
-      });
-
-      final response = await http.post(
-        url.replace(queryParameters: queryParameters),
-        headers: headers,
-        body: body,
-      );
-
-      setState(() {
-        _isLoading = false; // Hide loading indicator
-
-        if (response.statusCode == 200) {
-          final responseData = jsonDecode(response.body);
-          sentiment = responseData['content'].replaceAll("\n", "");
-        } else {
-          sentiment = 'Error analyzing sentiment';
-        }
-      });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Colors.blue,
-          content: Text.rich(
-            TextSpan(
-              children: [
-                TextSpan(
-                  text: sentiment,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          duration: Duration(seconds: 6), // Adjust duration as needed
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please write a review before submitting.'),
-          duration: Duration(seconds: 6),
-        ),
-      );
-    }
-
-    _reviewController.clear();
-  }
-
-  void _shareReview() {
-    String message = "I Rated my Rail Madad App $_rating stars.\n\n"
-        "Review: ${_reviewController.text}\n\n"
-        "Response: $sentiment";
-
-    Share.share(message);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16.0, right: 16, top: 32),
-              child: Column(
-                children: [
-                  Text(
-                    "Give Your Feedback & Rating",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  RatingBar.builder(
-                    initialRating: _rating,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    itemCount: 5,
-                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                    itemBuilder: (context, _) => Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    onRatingUpdate: (rating) {
-                      setState(() {
-                        _rating = rating;
-                      });
-                    },
-                  ),
-                  SizedBox(height: 24),
-                  Text(
-                    '''
-                  Hey ${widget.username}   
-        Give Your Valuable Feedback Below
-             ''',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  TextField(
-                    controller: _reviewController,
-                    maxLines: 4,
-                    decoration: InputDecoration(
-                      hintText: "Write your message here ...",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 176, 213, 243),
-                          minimumSize: Size(150, 50),
-                        ),
-                        onPressed: _submitReview,
-                        icon: Icon(
-                          Icons.check,
-                          color: Colors.black,
-                        ),
-                        label: Text(
-                          "Submit",
-                          style: TextStyle(fontSize: 18, color: Colors.black),
-                        ),
-                      ),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 176, 213, 243),
-                          minimumSize: Size(150, 50),
-                        ),
-                        onPressed: _shareReview,
-                        icon: Icon(
-                          Icons.share,
-                          color: Colors.black,
-                        ),
-                        label: Text(
-                          "Share",
-                          style: TextStyle(fontSize: 18, color: Colors.black),
-                        ),
-                      ),
-                    ],
-                  ),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        body: Column(
+          children: [
+            Container(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              child: TabBar(
+                indicatorColor: Colors.blue,
+                labelColor: Colors.blue,
+                unselectedLabelColor: Colors.grey[600],
+                labelStyle: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                tabs: const [
+                  Tab(text: 'Suggestion'),
+                  Tab(text: 'Rail Anubhav'),
                 ],
               ),
             ),
-          ),
-          if (_isLoading)
-            Center(
-              child: CircularProgressIndicator(
-                color: Colors.blue,
+            Expanded(
+              child: TabBarView(
+                children: [
+                  SuggestionPage(),
+                  RailAnubhavPage(username: widget.username),
+                ],
               ),
             ),
-        ],
+          ],
+        ),
       ),
     );
   }
