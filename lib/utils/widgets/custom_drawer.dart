@@ -1,5 +1,5 @@
 import 'package:complaint_management_system/components/pages/home_page.dart';
-import 'package:complaint_management_system/components/pages/other_services.dart';
+import 'package:complaint_management_system/components/pages/Drawer/other_services.dart';
 import 'package:complaint_management_system/components/pages/training%20and%20support/Departent.dart';
 import 'package:complaint_management_system/services/auth/auth.dart';
 import 'package:flutter/material.dart';
