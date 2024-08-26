@@ -51,12 +51,12 @@ class _StationComplaintState extends State<StationComplaint> {
               const SizedBox(height: 15),
               InkWell(
                   onTap: () async {
-                    final picked_file =
+                    final pickedFile =
                         await picker.pickImage(source: ImageSource.gallery);
-                    if (picked_file == null) return;
+                    if (pickedFile == null) return;
 
                     setState(() {
-                      image = picked_file as File?;
+                      image = pickedFile as File?;
                     });
                   },
                   child: Text('SELECT PHOTO', style: style)),
@@ -70,12 +70,12 @@ class _StationComplaintState extends State<StationComplaint> {
               const SizedBox(height: 15),
               InkWell(
                   onTap: () async {
-                    final picked_file =
+                    final pickedFile =
                         await picker.pickVideo(source: ImageSource.gallery);
-                    if (picked_file == null) return;
+                    if (pickedFile == null) return;
 
                     setState(() {
-                      video = picked_file as File?;
+                      video = pickedFile as File?;
                     });
                   },
                   child: Text('SELECT VIDEO', style: style)),
@@ -87,12 +87,12 @@ class _StationComplaintState extends State<StationComplaint> {
               const SizedBox(height: 15),
               InkWell(
                   onTap: () async {
-                    final picked_file =
+                    final pickedFile =
                         await picker.pickImage(source: ImageSource.camera);
-                    if (picked_file == null) return;
+                    if (pickedFile == null) return;
 
                     setState(() {
-                      image = picked_file as File?;
+                      image = pickedFile as File?;
                     });
                   },
                   child: Text('OPEN CAMERA', style: style)),
