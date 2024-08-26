@@ -9,6 +9,7 @@ class CustomTextfield extends StatelessWidget {
   final TextInputType? textInputType;
   final TextEditingController controller;
   ValueChanged<String>? onsubmitted;
+  final int? maxlines;
 
   CustomTextfield({
     super.key,
@@ -20,6 +21,7 @@ class CustomTextfield extends StatelessWidget {
     this.textInputType,
     required this.controller,
     this.onsubmitted,
+    this.maxlines,
   });
 
   @override
@@ -31,6 +33,8 @@ class CustomTextfield extends StatelessWidget {
         controller: controller,
         keyboardType: textInputType,
         onSubmitted: onsubmitted,
+        textAlign: TextAlign.start,
+        textAlignVertical: TextAlignVertical.top,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
@@ -71,6 +75,7 @@ class CustomTextfield extends StatelessWidget {
               const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         ),
         obscureText: obscurePassword,
+        maxLines: maxlines,
       ),
     );
   }

@@ -1,4 +1,4 @@
-import 'package:complaint_management_system/components/pages/complaint.dart';
+import 'package:complaint_management_system/components/pages/complaint_pages/complaint.dart';
 import 'package:complaint_management_system/components/pages/feedback.dart';
 import 'package:complaint_management_system/utils/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
@@ -20,19 +20,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: ValueListenableBuilder<int>(
-          valueListenable: _currentPage,
-          builder: (context, pageIndex, child) {
-            return Text(
-              _pageTitles[pageIndex],
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-            );
-          },
-        ),
-        backgroundColor: const Color.fromARGB(255, 69, 155, 225),
-      ),
-      drawer: CustomDrawer(username: username), // Pass username to CustomDrawer
       bottomNavigationBar: ValueListenableBuilder<int>(
         valueListenable: _currentPage,
         builder: (context, pageIndex, child) {
@@ -74,8 +61,20 @@ class HomePage extends StatelessWidget {
           _currentPage.value = index;
         },
         children: [
-          Center(child: Text('Home Page')),
-          Complaint(),
+          Scaffold(
+            appBar: AppBar(
+              title: const Text(
+                'Home Page',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+              backgroundColor: const Color.fromARGB(255, 69, 155, 225),
+            ),
+            drawer: CustomDrawer(username: username),
+            body: Center(
+              child: Text('Home Page'),
+            ),
+          ),
+          const Complaint(),
           FeedbackPage(username: username),
         ],
       ),

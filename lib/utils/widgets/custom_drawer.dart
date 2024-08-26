@@ -1,6 +1,8 @@
-import 'package:complaint_management_system/components/pages/home_page.dart';
+import 'package:complaint_management_system/components/app/splash_screen.dart';
+import 'package:complaint_management_system/components/pages/home_page/home_page.dart';
 import 'package:complaint_management_system/components/pages/Drawer/other_services.dart';
 import 'package:complaint_management_system/components/pages/training%20and%20support/Departent.dart';
+import 'package:complaint_management_system/main.dart';
 import 'package:complaint_management_system/services/auth/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +10,6 @@ class CustomDrawer extends StatelessWidget {
   final String username;
 
   CustomDrawer({super.key, required this.username});
-
-  Authentication auth = Authentication();
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +145,14 @@ class CustomDrawer extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             ),
             onTap: () {
+              Authentication auth = Authentication();
+
               auth.logout(context);
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SplashScreen(),
+                  ));
             },
           ),
         ],
