@@ -31,8 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
               width: 150.0,
               height: 150.0,
             ),
-           const SizedBox(height: 20.0),
-           const Text(
+            const SizedBox(height: 20.0),
+            const Text(
               'Rail Madad',
               style: TextStyle(
                 fontSize: 24.0,
@@ -40,8 +40,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 color: Colors.blue,
               ),
             ),
-           const SizedBox(height: 6),
-          const  Text(
+            const SizedBox(height: 6),
+            const Text(
               '(Register My Complaint)',
               style: TextStyle(
                 fontSize: 18.0,
@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 color: Colors.black,
               ),
             ),
-         const   SizedBox(height: 6),
+            const SizedBox(height: 6),
             const Text(
               'भारतीय रेल',
               style: TextStyle(
