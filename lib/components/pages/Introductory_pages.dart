@@ -105,17 +105,19 @@ class _IntroductoryPagesState extends State<IntroductoryPages> {
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => RegisterPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const RegisterPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor: Colors.blue,
-                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 13),
-                    textStyle:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 13),
+                    textStyle: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  child: Text("Get Started"),
+                  child: const Text("Get Started"),
                 ),
               ),
           ],

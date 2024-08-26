@@ -49,6 +49,7 @@ dependencies:
   google_speech: ^5.3.0
   permission_handler: ^11.3.1
   flutter_launcher_icons: ^0.13.1
+  image_picker: ^1.1.2
 
 flutter_launcher_icons:
   android: true

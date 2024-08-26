@@ -22,7 +22,7 @@ class CustomButton extends StatelessWidget {
           color: Colors.blueAccent
               .withOpacity(0.9), // Subtle blue background with opacity
           borderRadius: BorderRadius.circular(15),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Colors.black26, // Subtle shadow effect
               blurRadius: 8,
