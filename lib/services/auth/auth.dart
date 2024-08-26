@@ -28,6 +28,7 @@ class Authentication {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
       pref.setString('error', '');
+      pref.setBool('login', true);
     } on FirebaseAuthException catch (e) {
       pref.setString('error', e.code);
       print(e.code);
@@ -41,6 +42,8 @@ class Authentication {
     try {
       await auth.signOut();
       pref.setString('error', '');
+      pref.setBool('login', false);
+      pref.setString('name', '');
     } on FirebaseAuthException catch (e) {
       pref.setString('error', e.code);
       print(e.code);

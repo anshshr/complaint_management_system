@@ -1,4 +1,6 @@
-import 'package:complaint_management_system/components/pages/home_page.dart';
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:complaint_management_system/components/pages/home_page/home_page.dart';
 import 'package:complaint_management_system/services/auth/auth.dart';
 import 'package:complaint_management_system/utils/widgets/custom_button.dart';
 import 'package:complaint_management_system/utils/widgets/custom_dialogbox.dart';
@@ -27,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/railway1.jpg'),
             fit: BoxFit.fitHeight,
@@ -144,7 +146,8 @@ class _LoginPageState extends State<LoginPage> {
 
                             if (pref.getString('error') == null ||
                                 pref.getString('error') == '') {
-                              Navigator.push(
+                              pref.setString('name', username.text);
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => HomePage(

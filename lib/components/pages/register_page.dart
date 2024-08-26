@@ -30,7 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/railway2.jpg'),
             fit: BoxFit.cover,
@@ -139,7 +139,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               );
                               if (pref.getString('error') == null ||
                                   pref.getString('error') == '') {
-                                Navigator.push(
+                                Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => const LoginPage(),

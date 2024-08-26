@@ -1,21 +1,25 @@
-import 'package:complaint_management_system/components/pages/complaint.dart';
+import 'package:complaint_management_system/components/pages/complaint_pages/complaint.dart';
 import 'package:complaint_management_system/components/pages/feedback.dart';
+import 'package:complaint_management_system/provider/language_provider.dart';
 import 'package:complaint_management_system/utils/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatelessWidget {
   final String username;
-  final void Function(String languageCode) changeLanguage;
 
-  HomePage({super.key, required this.username, required this.changeLanguage});
+  HomePage(
+      {super.key,
+      required this.username,
+      required Null Function(String languageCode) changeLanguage});
 
   final PageController _pageController = PageController();
   final ValueNotifier<int> _currentPage = ValueNotifier<int>(0);
 
   final List<String> _pageTitles = [
     'Home Page',
-    'Complaint',
+    'Complaint Page',
     'Feedback Page',
   ];
 
@@ -28,7 +32,7 @@ class HomePage extends StatelessWidget {
           builder: (context, pageIndex, child) {
             return Text(
               _pageTitles[pageIndex],
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
             );
           },
         ),
@@ -50,24 +54,15 @@ class HomePage extends StatelessWidget {
             currentIndex: pageIndex,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  color: Colors.black87,
-                ),
+                icon: Icon(Icons.home, color: Colors.black87),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.compass_calibration,
-                  color: Colors.black87,
-                ),
+                icon: Icon(Icons.compass_calibration, color: Colors.black87),
                 label: 'Complaint',
               ),
               BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.feedback,
-                  color: Colors.black87,
-                ),
+                icon: Icon(Icons.feedback, color: Colors.black87),
                 label: 'Feedback',
               ),
             ],
@@ -104,14 +99,16 @@ class HomePage extends StatelessWidget {
               ListTile(
                 title: const Text('English'),
                 onTap: () {
-                  changeLanguage('en');
+                  Provider.of<LanguageProvider>(context, listen: false)
+                      .setLocale(const Locale('en'));
                   Navigator.of(context).pop();
                 },
               ),
               ListTile(
                 title: const Text('Hindi'),
                 onTap: () {
-                  changeLanguage('hi');
+                  Provider.of<LanguageProvider>(context, listen: false)
+                      .setLocale(const Locale('hi'));
                   Navigator.of(context).pop();
                 },
               ),

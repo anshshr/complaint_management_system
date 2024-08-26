@@ -1,6 +1,4 @@
 import 'package:complaint_management_system/components/pages/Introductory_pages.dart';
-import 'package:complaint_management_system/components/pages/home_page.dart';
-import 'package:complaint_management_system/components/pages/Drawer/other_services.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -13,7 +11,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => IntroductoryPages()),
       );
@@ -33,8 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
               width: 150.0,
               height: 150.0,
             ),
-            SizedBox(height: 20.0),
-            Text(
+           const SizedBox(height: 20.0),
+           const Text(
               'Rail Madad',
               style: TextStyle(
                 fontSize: 24.0,
@@ -42,8 +40,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 color: Colors.blue,
               ),
             ),
-            SizedBox(height: 6),
-            Text(
+           const SizedBox(height: 6),
+          const  Text(
               '(Register My Complaint)',
               style: TextStyle(
                 fontSize: 18.0,
@@ -52,8 +50,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 6),
-            Text(
+         const   SizedBox(height: 6),
+            const Text(
               'भारतीय रेल',
               style: TextStyle(
                 fontSize: 24.0,
