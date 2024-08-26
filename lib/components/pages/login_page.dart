@@ -147,8 +147,10 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      HomePage(username: username.text),
+                                  builder: (context) => HomePage(
+                                    username: username.text,
+                                    changeLanguage: (String languageCode) {},
+                                  ),
                                 ),
                               );
                             } else {
