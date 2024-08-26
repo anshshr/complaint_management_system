@@ -157,9 +157,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
                         context: context,
                         initialDate: DateTime.now(),
                         currentDate: DateTime.now(),
-                        onDatePickerModeChange: (value) {
-                          datetime.text = value as String;
-                        },
+                       
                         firstDate: DateTime(2020),
                         lastDate: DateTime(2026),
                       ).then((selectedDate) {

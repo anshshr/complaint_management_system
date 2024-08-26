@@ -16,15 +16,13 @@ class _StationComplaintState extends State<StationComplaint> {
   TextEditingController stationname = TextEditingController();
   TextEditingController problem = TextEditingController();
   TextEditingController datetime = TextEditingController();
-   File? image;
+  File? image;
   File? video;
   File? camera_photo;
-   final TextStyle style =
-        TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
-    final picker = ImagePicker();
+  final TextStyle style = TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+  final picker = ImagePicker();
 
   Future<void> show_media_options(BuildContext context) async {
-   
     return showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -106,7 +104,6 @@ class _StationComplaintState extends State<StationComplaint> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,9 +135,6 @@ class _StationComplaintState extends State<StationComplaint> {
                       context: context,
                       initialDate: DateTime.now(),
                       currentDate: DateTime.now(),
-                      onDatePickerModeChange: (value) {
-                        datetime.text = value as String;
-                      },
                       firstDate: DateTime(2020),
                       lastDate: DateTime(2026),
                     ).then((selectedDate) {
@@ -184,4 +178,3 @@ class _StationComplaintState extends State<StationComplaint> {
     )));
   }
 }
-
