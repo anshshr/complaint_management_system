@@ -92,12 +92,26 @@ class HomePage extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Choose Language'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            side: const BorderSide(color: Colors.blue, width: 2.0),
+          ),
+          shadowColor: Colors.blue,
+          title: const Text(
+            'Choose Language',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                title: const Text('English'),
+                title: const Text(
+                  'English',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.blue),
+                ),
                 onTap: () {
                   Provider.of<LanguageProvider>(context, listen: false)
                       .setLocale(const Locale('en'));
@@ -105,7 +119,13 @@ class HomePage extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: const Text('Hindi'),
+                title: const Text(
+                  'Hindi',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                      fontSize: 20),
+                ),
                 onTap: () {
                   Provider.of<LanguageProvider>(context, listen: false)
                       .setLocale(const Locale('hi'));

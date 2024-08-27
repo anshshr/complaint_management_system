@@ -3,6 +3,7 @@ import 'package:complaint_management_system/components/pages/Drawer/settings.dar
 import 'package:complaint_management_system/components/pages/RailAnubhav.dart';
 import 'package:complaint_management_system/components/pages/Suggestion.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/complaint.dart';
+import 'package:complaint_management_system/components/pages/complaint_pages/complaint_history_page.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/station_complaint.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/track_complaint.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/train_complaint.dart';
@@ -32,6 +33,7 @@ class _HelpScreenState extends State<HelpScreen> {
     'Track Complaint',
     'Department',
     'Other Services'
+        'Complaint History'
   ];
 
   void _performSearch(String query) {
@@ -77,6 +79,8 @@ class _HelpScreenState extends State<HelpScreen> {
         return OtherServicesPage(
           username: '',
         );
+      case 'Complaint History':
+        return ComplaintHistoryPage();
       default:
         return HelpScreen();
     }
