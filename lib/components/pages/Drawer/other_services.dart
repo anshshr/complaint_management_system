@@ -58,7 +58,7 @@ class OtherServicesPage extends StatelessWidget {
         ],
       ),
       drawer: CustomDrawer(
-        username: username, // Pass username to the drawer
+        username: username,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
