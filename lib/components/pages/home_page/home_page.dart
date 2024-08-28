@@ -1,5 +1,6 @@
 import 'package:complaint_management_system/components/pages/complaint_pages/complaint.dart';
 import 'package:complaint_management_system/components/pages/feedback.dart';
+import 'package:complaint_management_system/components/pages/Drawer/Live_Train_Location.dart';
 import 'package:complaint_management_system/provider/language_provider.dart';
 import 'package:complaint_management_system/utils/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
@@ -39,9 +40,24 @@ class HomePage extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 69, 155, 225),
         actions: [
           IconButton(
-            icon: const Icon(Icons.language),
+            icon: const Icon(
+              Icons.language,
+              color: Colors.black,
+            ),
             onPressed: () {
               _showLanguageDialog(context);
+            },
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.location_on,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => TrainTrackingScreen()),
+              // );
             },
           ),
         ],

@@ -1,5 +1,6 @@
 import 'package:complaint_management_system/components/pages/Drawer/settings.dart';
 import 'package:complaint_management_system/components/app/splash_screen.dart';
+import 'package:complaint_management_system/components/pages/Drawer/trains_&_station_page.dart';
 import 'package:complaint_management_system/components/pages/home_page/home_page.dart';
 import 'package:complaint_management_system/components/pages/Drawer/other_services.dart';
 import 'package:complaint_management_system/components/pages/training%20and%20support/Departent.dart';
@@ -136,6 +137,25 @@ class CustomDrawer extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => OtherServicesPage(username: username),
+              ),
+              (route) => false,
+            ),
+          ),
+          ListTile(
+            contentPadding: const EdgeInsets.only(left: 40, top: 10),
+            leading: const Icon(
+              Icons.train,
+              color: Colors.black,
+              size: 26,
+            ),
+            title: const Text(
+              'T R A I N S  &  S T A T I O N S',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            ),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TrainStationPage(),
               ),
               (route) => false,
             ),
