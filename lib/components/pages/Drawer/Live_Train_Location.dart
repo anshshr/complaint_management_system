@@ -14,8 +14,13 @@ class _TrainTrackingScreenState extends State<TrainTrackingScreen> {
   String _trainName = '';
   String _lastMessage = '';
   String _updatedTime = '';
+  bool _isLoading = false;
 
   void _fetchTrainData(String trainNumber) async {
+    setState(() {
+      _isLoading = true;
+    });
+
     final url = 'https://rappid.in/apis/train.php?train_no=$trainNumber';
 
     final response = await http.get(Uri.parse(url));
@@ -27,8 +32,12 @@ class _TrainTrackingScreenState extends State<TrainTrackingScreen> {
         _lastMessage = data['message'] ?? '';
         _updatedTime = data['updated_time'] ?? '';
         _trainData = data['data'] ?? [];
+        _isLoading = false;
       });
     } else {
+      setState(() {
+        _isLoading = false;
+      });
       print('Failed to load train data');
     }
   }
@@ -63,7 +72,13 @@ class _TrainTrackingScreenState extends State<TrainTrackingScreen> {
               ),
             ),
             SizedBox(height: 20),
-            if (_trainName.isNotEmpty)
+            if (_isLoading)
+              Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              )
+            else if (_trainName.isNotEmpty)
               Container(
                 padding: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
