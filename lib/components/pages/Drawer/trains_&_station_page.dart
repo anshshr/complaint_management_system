@@ -1,3 +1,4 @@
+import 'package:complaint_management_system/components/pages/Drawer/station_screen.dart';
 import 'package:complaint_management_system/components/pages/home_page/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:complaint_management_system/components/pages/Drawer/Live_Train_Location.dart';
@@ -70,22 +71,6 @@ class _TrainStationPageState extends State<TrainStationPage> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blueAccent,
         onTap: _onItemTapped,
-      ),
-    );
-  }
-}
-
-class StationScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Station Screen',
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: Colors.blue,
-        ),
       ),
     );
   }
