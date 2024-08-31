@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:lottie/lottie.dart';
 
 class RolesResponsibilities extends StatefulWidget {
   String deptName;
@@ -79,22 +80,21 @@ class _RolesResponsibilitiesState extends State<RolesResponsibilities> {
                     ],
                   ),
                 )
-              : const Center(
+              : Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircularProgressIndicator(
-                        color: Colors.black87,
-                      ),
+                      Lottie.asset('assets/animation/dept1.json',
+                          height: 200, width: 200),
                       SizedBox(
                         height: 10,
                       ),
-                      Text(
+                      const Text(
                         'Loading...',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 17),
-                      )
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
                     ],
                   ),
                 )),

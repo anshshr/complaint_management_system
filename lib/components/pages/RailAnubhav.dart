@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:http/http.dart' as http;
+import 'package:lottie/lottie.dart';
 import 'package:share_plus/share_plus.dart';
 
 class RailAnubhavPage extends StatefulWidget {
@@ -213,8 +214,23 @@ class _RailAnubhavPageState extends State<RailAnubhavPage> {
           ),
           if (_isLoading)
             Center(
-              child: CircularProgressIndicator(
-                color: Colors.blue,
+              child: Container(
+                height: double.infinity,
+                width: double.infinity,
+                color: Colors.white.withOpacity(0.9),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset('assets/animation/train1.json'),
+                    Text(
+                      'On Track, Almost there ...',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
               ),
             ),
         ],
