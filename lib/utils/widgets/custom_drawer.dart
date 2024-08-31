@@ -1,3 +1,4 @@
+import 'package:complaint_management_system/components/pages/Drawer/parcel_inquiry.dart';
 import 'package:complaint_management_system/components/pages/Drawer/settings.dart';
 import 'package:complaint_management_system/components/app/splash_screen.dart';
 import 'package:complaint_management_system/components/pages/Drawer/trains_&_station_page.dart';
@@ -119,6 +120,25 @@ class CustomDrawer extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => SettingsScreen(),
+                  ));
+            },
+          ),
+          ListTile(
+            contentPadding: const EdgeInsets.only(left: 40, top: 10),
+            leading: const Icon(
+              Icons.delivery_dining_sharp,
+              color: Colors.black,
+              size: 26,
+            ),
+            title: const Text(
+              'P A R C E L  I N Q U I R Y',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ParcelInquiry(),
                   ));
             },
           ),

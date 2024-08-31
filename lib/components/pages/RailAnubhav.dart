@@ -78,7 +78,7 @@ class _RailAnubhavPageState extends State<RailAnubhavPage> {
               ],
             ),
           ),
-          duration: Duration(seconds: 6), // Adjust duration as needed
+          duration: Duration(seconds: 6),
         ),
       );
     } else {
