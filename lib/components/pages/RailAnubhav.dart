@@ -32,7 +32,7 @@ class _RailAnubhavPageState extends State<RailAnubhavPage> {
       final queryParameters = {
         'model_id': '27',
         'prompt':
-            'Analyze review and provide an innovative response in exactly 10 words: $reviewText',
+            'Analyze review and only give response that the user is satisfy with the app in exactly 10 words: $reviewText',
       };
       final headers = {
         'Content-Type': 'application/json',
