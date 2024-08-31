@@ -71,11 +71,13 @@ class CustomTextfield extends StatelessWidget {
           prefixIcon: prefixicon,
           hintText: hinttext,
           labelText: labeltext,
+        
           contentPadding:
               const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         ),
         obscureText: obscurePassword,
         maxLines: 1,
+      
       ),
     );
   }

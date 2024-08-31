@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:complaint_management_system/components/pages/complaint_pages/complaint_details.dart';
 import 'package:complaint_management_system/utils/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -58,9 +59,10 @@ class _TrainComplaintState extends State<TrainComplaint> {
                     final picked_file =
                         await picker.pickImage(source: ImageSource.gallery);
                     if (picked_file == null) return;
+                    final path = picked_file.path;
 
                     setState(() {
-                      image = picked_file as File?;
+                      image = File(path);
                     });
                   },
                   child: Text('SELECT PHOTO', style: style)),
@@ -77,9 +79,10 @@ class _TrainComplaintState extends State<TrainComplaint> {
                     final picked_file =
                         await picker.pickVideo(source: ImageSource.gallery);
                     if (picked_file == null) return;
+                    final path = picked_file.path;
 
                     setState(() {
-                      video = picked_file as File?;
+                      video = File(path);
                     });
                   },
                   child: Text('SELECT VIDEO', style: style)),
@@ -94,9 +97,10 @@ class _TrainComplaintState extends State<TrainComplaint> {
                     final picked_file =
                         await picker.pickImage(source: ImageSource.camera);
                     if (picked_file == null) return;
+                    final path = picked_file.path;
 
                     setState(() {
-                      image = picked_file as File?;
+                      image = File(path);
                     });
                   },
                   child: Text('OPEN CAMERA', style: style)),
@@ -133,6 +137,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
                 hinttext: 'Enter you Train No.',
                 obscurePassword: false,
                 labeltext: 'Train No.',
+                textInputType: TextInputType.number,
                 controller: trainno),
             const SizedBox(
               height: 15,
@@ -141,6 +146,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
                 hinttext: 'Enter you Train PRN No.',
                 obscurePassword: false,
                 labeltext: 'PRN No.',
+                textInputType: TextInputType.number,
                 controller: prno),
             const SizedBox(
               height: 15,
@@ -148,6 +154,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
             CustomTextfield(
                 hinttext: 'Enter the date',
                 obscurePassword: false,
+                textInputType: TextInputType.datetime,
                 labeltext: 'Enter the date  ',
                 suffixicon: IconButton(
                     onPressed: () {
@@ -157,7 +164,6 @@ class _TrainComplaintState extends State<TrainComplaint> {
                         context: context,
                         initialDate: DateTime.now(),
                         currentDate: DateTime.now(),
-                       
                         firstDate: DateTime(2020),
                         lastDate: DateTime(2026),
                       ).then((selectedDate) {
@@ -193,6 +199,12 @@ class _TrainComplaintState extends State<TrainComplaint> {
                 ),
                 complaint_button('SUBMIT', () {
                   //submit the things
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ComplaintDetails(
+                            problem: problem.text, file: image!),
+                      ));
                 }),
               ],
             )
