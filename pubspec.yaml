@@ -95,6 +95,7 @@ flutter:
      - assets/emojis/
      - assets/logo/
      - assets/into/
+     - assets/home/
      - assets/images/
      - assets/json/
 
