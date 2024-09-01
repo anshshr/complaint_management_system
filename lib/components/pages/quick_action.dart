@@ -50,12 +50,12 @@ class _HomePageState extends State<HomePage> {
       const ShortcutItem(
         type: 'open_complaint',
         localizedTitle: 'Complaint',
-        icon: 'indianrail',
+        icon: 'icon_complaint',
       ),
       const ShortcutItem(
         type: 'open_website',
         localizedTitle: 'Open Website',
-        icon: 'indianrail',
+        icon: 'icon_placeholder',
       ),
     ]);
   }
@@ -200,7 +200,8 @@ class _HomePageState extends State<HomePage> {
           HomePageContent(imagesLocation: imagesLocation),
           const Complaint(),
           FeedbackPage(
-            username: widget.username,
+            username:
+                widget.username, /* Ensure the correct username is passed */
           ),
         ],
       ),

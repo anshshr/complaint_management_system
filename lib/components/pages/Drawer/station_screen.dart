@@ -72,21 +72,27 @@ class _StationScreenState extends State<StationScreen> {
             SizedBox(height: 20),
             Expanded(
               child: _isLoading
-                  ? Center(
-                      child: Container(
-                        color: Colors.white.withOpacity(0.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Lottie.asset('assets/animation/train1.json'),
-                            Text(
-                              'On Track, Almost there ...',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w800),
-                            )
-                          ],
+                  ? Expanded(
+                      child: Center(
+                        child: Container(
+                          color: Colors.white.withOpacity(0.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  child: Lottie.asset(
+                                      'assets/animation/train1.json')),
+                              Expanded(
+                                child: Text(
+                                  'On Track, Almost there ...',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w800),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     )
