@@ -1,10 +1,12 @@
 import 'dart:io';
-
+import 'package:audioplayers/audioplayers.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/complaint_details.dart';
+import 'package:complaint_management_system/components/pages/complaint_pages/widgets/media_conatiner.dart';
+import 'package:complaint_management_system/utils/widgets/custom_dialogbox.dart';
 import 'package:complaint_management_system/utils/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:record/record.dart';
 
 class TrainComplaint extends StatefulWidget {
   TrainComplaint({super.key});
@@ -15,19 +17,63 @@ class TrainComplaint extends StatefulWidget {
 
 class _TrainComplaintState extends State<TrainComplaint> {
   TextEditingController trainno = TextEditingController();
-
   TextEditingController prno = TextEditingController();
-
   TextEditingController problem = TextEditingController();
-
   TextEditingController desc = TextEditingController();
-
   TextEditingController datetime = TextEditingController();
   File? image;
   File? video;
   File? camera_photo;
-  final TextStyle style = TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+  File? audioFile;
+  final TextStyle style =
+      const TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
   final picker = ImagePicker();
+  List media_data = [];
+
+  // late AudioPlayer audioPlayer;
+  // late AudioRecorder audioRecorder;
+  bool isRecording = false;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   audioPlayer = AudioPlayer();
+  //   audioRecorder = AudioRecorder();
+  // }
+
+  // Future<void> startRecording() async {
+  //   print('entered start recording');
+  //   try {
+  //     if (await audioRecorder.hasPermission()) {
+  //       await audioRecorder.start(
+  //         path: 'C:\Users\anshs\OneDrive\Documents\recorded audio',
+  //         RecordConfig(),
+  //       );
+  //       setState(() {
+  //         isRecording = true;
+  //       });
+  //     }
+  //   } catch (e) {
+  //     print('error strat recording' + e.toString());
+  //   }
+  // }
+
+  // Future<void> stopRecording() async {
+  //   print('entered stop recording');
+
+  //   try {
+  //     final path = await audioRecorder.stop();
+  //     if (path != null) {
+  //       setState(() {
+  //         audioFile = File(path);
+  //         media_data.add(audioFile);
+  //         isRecording = false;
+  //       });
+  //     }
+  //   } catch (e) {
+  //     print('error occured recording' + e.toString());
+  //   }
+  // }
 
   Future<void> show_bottom_sheet(BuildContext context) async {
     return showModalBottomSheet(
@@ -36,7 +82,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
       builder: (context) {
         return Container(
           padding: const EdgeInsets.only(top: 20, bottom: 10),
-          height: 300,
+          height: 380,
           width: double.infinity,
           child: Column(
             children: [
@@ -56,14 +102,16 @@ class _TrainComplaintState extends State<TrainComplaint> {
               const SizedBox(height: 15),
               InkWell(
                   onTap: () async {
-                    final picked_file =
+                    final pickedFile =
                         await picker.pickImage(source: ImageSource.gallery);
-                    if (picked_file == null) return;
-                    final path = picked_file.path;
+                    if (pickedFile == null) return;
+                    final path = pickedFile.path;
 
                     setState(() {
                       image = File(path);
+                      media_data.add(image);
                     });
+                    Navigator.pop(context);
                   },
                   child: Text('SELECT PHOTO', style: style)),
               const SizedBox(
@@ -76,14 +124,16 @@ class _TrainComplaintState extends State<TrainComplaint> {
               const SizedBox(height: 15),
               InkWell(
                   onTap: () async {
-                    final picked_file =
+                    final pickedFile =
                         await picker.pickVideo(source: ImageSource.gallery);
-                    if (picked_file == null) return;
-                    final path = picked_file.path;
+                    if (pickedFile == null) return;
+                    final path = pickedFile.path;
 
                     setState(() {
                       video = File(path);
+                      media_data.add(video);
                     });
+                    Navigator.pop(context);
                   },
                   child: Text('SELECT VIDEO', style: style)),
               const SizedBox(height: 15),
@@ -94,16 +144,37 @@ class _TrainComplaintState extends State<TrainComplaint> {
               const SizedBox(height: 15),
               InkWell(
                   onTap: () async {
-                    final picked_file =
+                    final pickedFile =
                         await picker.pickImage(source: ImageSource.camera);
-                    if (picked_file == null) return;
-                    final path = picked_file.path;
+                    if (pickedFile == null) return;
+                    final path = pickedFile.path;
 
                     setState(() {
                       image = File(path);
+                      media_data.add(image);
                     });
+                    Navigator.pop(context);
                   },
                   child: Text('OPEN CAMERA', style: style)),
+              const SizedBox(height: 15),
+              const Divider(
+                color: Colors.black87,
+                thickness: 1,
+              ),
+              const SizedBox(height: 15),
+              InkWell(
+                  onTap: () async {
+                    // print('record function');
+                    // if (isRecording) {
+                    //   await stopRecording();
+                    // } else {
+                    //   await startRecording();
+                    // }
+                    // print('record function edn');
+                    // Navigator.pop(context);
+                  },
+                  child: Text(isRecording ? 'STOP RECORDING' : 'RECORD AUDIO',
+                      style: style)),
               const SizedBox(
                 height: 10,
               ),
@@ -172,7 +243,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
                         }
                       });
                     },
-                    icon: Icon(Icons.calendar_month)),
+                    icon: const Icon(Icons.calendar_month)),
                 controller: datetime),
             const SizedBox(
               height: 15,
@@ -188,6 +259,24 @@ class _TrainComplaintState extends State<TrainComplaint> {
             const SizedBox(
               height: 15,
             ),
+            media_data.length != 0
+                ? SizedBox(
+                    height: 90,
+                    width: double.infinity,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: media_data.length,
+                      physics: const ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return MediaConatiner(mediaUrl: media_data[index]);
+                      },
+                    ),
+                  )
+                : SizedBox(),
+            const SizedBox(
+              height: 15,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -199,12 +288,20 @@ class _TrainComplaintState extends State<TrainComplaint> {
                 ),
                 complaint_button('SUBMIT', () {
                   //submit the things
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ComplaintDetails(
-                            problem: problem.text, file: image!),
-                      ));
+                  if (desc.text != null &&
+                      problem.text != '' &&
+                      desc.text != '' &&
+                      trainno.text != '') {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ComplaintDetails(
+                              problem: problem.text, file: image!),
+                        ));
+                  } else {
+                    customDialog(
+                        context, 'Please Enter all the necessary Details');
+                  }
                 }),
               ],
             )
@@ -221,7 +318,7 @@ Widget complaint_button(String text, VoidCallback ontap) {
     child: Container(
       height: 50,
       width: 150,
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         color: Colors.blueAccent
             .withOpacity(0.9), // Subtle blue background with opacity

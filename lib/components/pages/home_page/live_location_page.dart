@@ -3,6 +3,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
 class LiveLocationPage extends StatefulWidget {
+  const LiveLocationPage({super.key});
+
   @override
   _LiveLocationPageState createState() => _LiveLocationPageState();
 }
@@ -50,7 +52,7 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
     return Scaffold(
       backgroundColor: Colors.blue.shade50, // Light blue background
       appBar: AppBar(
-        title: Text('Live Location'),
+        title: const Text('Live Location'),
         backgroundColor: Colors.blue,
       ),
       body: Padding(
@@ -64,16 +66,16 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.blue, // Text color
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   elevation: 5,
                 ),
-                child: Text('Get Current Location'),
+                child: const Text('Get Current Location'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 _locationMessage,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                   color: Colors.black87,

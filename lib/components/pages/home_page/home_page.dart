@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
           builder: (context, pageIndex, child) {
             return Text(
               _pageTitles[pageIndex],
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
             );
           },
         ),
@@ -62,19 +62,6 @@ class HomePage extends StatelessWidget {
               );
             },
           ),
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChatPage(),
-                  ));
-            },
-            icon: const Icon(
-              Icons.chat,
-              color: Colors.black,
-            ),
-          )
         ],
       ),
       drawer: CustomDrawer(username: username),
@@ -110,8 +97,8 @@ class HomePage extends StatelessWidget {
           _currentPage.value = index;
         },
         children: [
-          homepage(),
-          Complaint(),
+          homepage(context),
+          const Complaint(),
           FeedbackPage(username: username),
         ],
       ),
@@ -142,36 +129,68 @@ class HomePage extends StatelessWidget {
         'Our app offers the inquiry about various railway depart and their problems ')
   ];
 
-  Widget homepage() {
+  Widget homepage(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-      child: Column(
+      child: Stack(
         children: [
-          CarouselSlider(
-              items: images,
-              options: CarouselOptions(
-                  autoPlay: true,
-                  enlargeCenterPage: true,
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  autoPlayAnimationDuration: const Duration(seconds: 3),
-                  initialPage: 0,
-                  enableInfiniteScroll: true,
-                  height: 200,
-                  scrollDirection: Axis.horizontal,
-                  reverse: true,
-                  enlargeFactor: 1,
-                  viewportFraction: 0.95,
-                  animateToClosest: true,
-                  disableCenter: true,
-                  pauseAutoPlayOnTouch: true)),
-          SolvedComplaintsTab()
+          Column(
+            children: [
+              CarouselSlider(
+                  items: images,
+                  options: CarouselOptions(
+                      autoPlay: true,
+                      enlargeCenterPage: true,
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      autoPlayAnimationDuration: const Duration(seconds: 3),
+                      initialPage: 0,
+                      enableInfiniteScroll: true,
+                      height: 200,
+                      scrollDirection: Axis.horizontal,
+                      reverse: true,
+                      enlargeFactor: 1,
+                      viewportFraction: 0.95,
+                      animateToClosest: true,
+                      disableCenter: true,
+                      pauseAutoPlayOnTouch: true)),
+              SolvedComplaintsTab(),
+            ],
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatPage(),
+                  ));
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Container(
+                  height: 80,
+                  width: 80,
+                  decoration: BoxDecoration(
+                      color: Colors.amber,
+                      image: const DecorationImage(
+                          fit: BoxFit.cover,
+                          alignment: Alignment.topCenter,
+                          image: NetworkImage(
+                              'https://www.shutterstock.com/image-illustration/3d-illustration-little-robot-fat-260nw-1640636815.jpg')),
+                      border: Border.all(width: 2, color: Colors.black87),
+                      borderRadius: BorderRadius.circular(40)),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
   }
 
   Widget customSliderConatiner(
-      int index, String title, Color color, String desc_text) {
+      int index, String title, Color color, String descText) {
     return Container(
       height: 500,
       padding: const EdgeInsets.all(5),
@@ -206,8 +225,8 @@ class HomePage extends StatelessWidget {
             ),
           ),
           Text(
-            desc_text,
-            style: TextStyle(
+            descText,
+            style: const TextStyle(
                 color: Colors.black, fontSize: 15, fontWeight: FontWeight.w700),
           )
         ],

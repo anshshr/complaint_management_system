@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/train_complaint.dart';
+import 'package:complaint_management_system/components/pages/complaint_pages/widgets/media_conatiner.dart';
 import 'package:complaint_management_system/utils/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:record/record.dart';
 
 class StationComplaint extends StatefulWidget {
   const StationComplaint({super.key});
@@ -19,8 +22,42 @@ class _StationComplaintState extends State<StationComplaint> {
   File? image;
   File? video;
   File? camera_photo;
-  final TextStyle style = TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+  final TextStyle style =
+      const TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
   final picker = ImagePicker();
+  List media_type = [];
+
+  late AudioPlayer audioPlayer;
+  late AudioRecorder audioRecorder;
+  bool isRecording = false;
+  // File? audioFile;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   audioPlayer = AudioPlayer();
+  //   audioRecorder = AudioRecorder();
+  // }
+
+  // Future<void> startRecording() async {
+  //   if (await audioRecorder.hasPermission()) {
+  //     await audioRecorder.start(path: './audiorecoord', RecordConfig());
+  //     setState(() {
+  //       isRecording = true;
+  //     });
+  //   }
+  // }
+
+  // Future<void> stopRecording() async {
+  //   final path = await audioRecorder.stop();
+  //   if (path != null) {
+  //     setState(() {
+  //       audioFile = File(path);
+  //       media_type.add(audioFile);
+  //       isRecording = false;
+  //     });
+  //   }
+  // }
 
   Future<void> show_media_options(BuildContext context) async {
     return showModalBottomSheet(
@@ -29,7 +66,7 @@ class _StationComplaintState extends State<StationComplaint> {
       builder: (context) {
         return Container(
           padding: const EdgeInsets.only(top: 20, bottom: 10),
-          height: 300,
+          height: 380,
           width: double.infinity,
           child: Column(
             children: [
@@ -52,10 +89,13 @@ class _StationComplaintState extends State<StationComplaint> {
                     final pickedFile =
                         await picker.pickImage(source: ImageSource.gallery);
                     if (pickedFile == null) return;
+                    final path = pickedFile.path;
 
                     setState(() {
-                      image = pickedFile as File?;
+                      image = File(path);
+                      media_type.add(image);
                     });
+                    Navigator.pop(context);
                   },
                   child: Text('SELECT PHOTO', style: style)),
               const SizedBox(
@@ -71,10 +111,13 @@ class _StationComplaintState extends State<StationComplaint> {
                     final pickedFile =
                         await picker.pickVideo(source: ImageSource.gallery);
                     if (pickedFile == null) return;
+                    final path = pickedFile.path;
 
                     setState(() {
-                      video = pickedFile as File?;
+                      video = File(path);
+                      media_type.add(video);
                     });
+                    Navigator.pop(context);
                   },
                   child: Text('SELECT VIDEO', style: style)),
               const SizedBox(height: 15),
@@ -88,12 +131,28 @@ class _StationComplaintState extends State<StationComplaint> {
                     final pickedFile =
                         await picker.pickImage(source: ImageSource.camera);
                     if (pickedFile == null) return;
+                    final path = pickedFile.path;
 
                     setState(() {
-                      image = pickedFile as File?;
+                      image = File(path);
+                      media_type.add(image);
                     });
+                    Navigator.pop(context);
                   },
                   child: Text('OPEN CAMERA', style: style)),
+              const SizedBox(
+                height: 15,
+              ),
+              const Divider(
+                color: Colors.black87,
+                thickness: 1,
+              ),
+              const SizedBox(height: 15),
+              InkWell(
+                  onTap: () async {
+                    Navigator.pop(context);
+                  },
+                  child: Text('RECORD AUDIO', style: style)),
               const SizedBox(
                 height: 10,
               ),
@@ -109,7 +168,7 @@ class _StationComplaintState extends State<StationComplaint> {
     return Scaffold(
         body: Center(
             child: Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       height: double.infinity,
       width: double.infinity,
       child: SingleChildScrollView(
@@ -143,7 +202,7 @@ class _StationComplaintState extends State<StationComplaint> {
                       }
                     });
                   },
-                  icon: Icon(Icons.calendar_month)),
+                  icon: const Icon(Icons.calendar_month)),
               controller: datetime),
           const SizedBox(
             height: 15,
@@ -159,6 +218,21 @@ class _StationComplaintState extends State<StationComplaint> {
           const SizedBox(
             height: 15,
           ),
+          media_type.length != 0
+              ? SizedBox(
+                  height: 90,
+                  width: double.infinity,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: media_type.length,
+                    physics: const ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return MediaConatiner(mediaUrl: media_type[index]);
+                    },
+                  ),
+                )
+              : SizedBox(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -172,7 +246,7 @@ class _StationComplaintState extends State<StationComplaint> {
                 //submit the things
               }),
             ],
-          )
+          ),
         ],
       )),
     )));

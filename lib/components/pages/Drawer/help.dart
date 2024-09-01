@@ -13,6 +13,8 @@ import 'package:complaint_management_system/components/pages/training%20and%20su
 import 'package:flutter/material.dart';
 
 class HelpScreen extends StatefulWidget {
+  const HelpScreen({super.key});
+
   @override
   _HelpScreenState createState() => _HelpScreenState();
 }
@@ -52,7 +54,7 @@ class _HelpScreenState extends State<HelpScreen> {
           changeLanguage: (String languageCode) {},
         );
       case 'feedback':
-        return FeedbackPage(
+        return const FeedbackPage(
           username: '',
         );
       case 'settings':
@@ -60,19 +62,19 @@ class _HelpScreenState extends State<HelpScreen> {
       // case 'profile':
       //   return ProfileScreen();
       case 'complaints':
-        return Complaint();
+        return const Complaint();
       case 'Rail Anubhav':
         return RailAnubhavPage(
           username: '',
         );
       case 'Suggestion':
-        return SuggestionPage();
+        return const SuggestionPage();
       case 'Train Complaint':
         return TrainComplaint();
       case 'Station Complaint':
-        return StationComplaint();
+        return const StationComplaint();
       case 'Track Complaint':
-        return TrackComplaint();
+        return const TrackComplaint();
       case 'Department':
         return Department();
       case 'Other Services':
@@ -90,7 +92,7 @@ class _HelpScreenState extends State<HelpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Help',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
         ),
@@ -101,11 +103,11 @@ class _HelpScreenState extends State<HelpScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Helpline Number: 139',
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             TextField(
               controller: _searchController,
               decoration: InputDecoration(
@@ -119,17 +121,17 @@ class _HelpScreenState extends State<HelpScreen> {
                 ),
                 prefixIcon: Icon(Icons.search, color: Colors.grey[600]),
                 contentPadding:
-                    EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+                    const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.black, // Initial border color is black
                     width: 1.0,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors
                         .blue, // Border color changes to blue when focused
                     width: 2.0,
@@ -146,9 +148,9 @@ class _HelpScreenState extends State<HelpScreen> {
                 ),
               ),
               onChanged: _performSearch,
-              style: TextStyle(fontSize: 16.0),
+              style: const TextStyle(fontSize: 16.0),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             Expanded(
               child: ListView.builder(
                 itemCount: _searchResults.length,

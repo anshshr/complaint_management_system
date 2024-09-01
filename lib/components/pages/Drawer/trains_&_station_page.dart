@@ -4,20 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:complaint_management_system/components/pages/Drawer/Live_Train_Location.dart';
 
 class TrainStationPage extends StatefulWidget {
+  const TrainStationPage({super.key});
+
   @override
   _TrainStationPageState createState() => _TrainStationPageState();
 }
 
 class _TrainStationPageState extends State<TrainStationPage> {
   int _selectedIndex = 0;
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
       _pageController.animateToPage(
         index,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
     });
@@ -30,11 +32,11 @@ class _TrainStationPageState extends State<TrainStationPage> {
         backgroundColor: Colors.blue,
         title: Text(
           _selectedIndex == 0 ? 'Station' : 'Live Train Status',
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return HomePage(

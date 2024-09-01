@@ -7,7 +7,7 @@ import 'package:share_plus/share_plus.dart';
 class RailAnubhavPage extends StatefulWidget {
   final String username;
 
-  RailAnubhavPage({required this.username});
+  const RailAnubhavPage({super.key, required this.username});
 
   @override
   _RailAnubhavPageState createState() => _RailAnubhavPageState();
@@ -15,7 +15,7 @@ class RailAnubhavPage extends StatefulWidget {
 
 class _RailAnubhavPageState extends State<RailAnubhavPage> {
   double _rating = 4.0;
-  TextEditingController _reviewController = TextEditingController();
+  final TextEditingController _reviewController = TextEditingController();
   String sentiment = '';
   bool _isLoading = false;
 
@@ -68,7 +68,7 @@ class _RailAnubhavPageState extends State<RailAnubhavPage> {
               children: [
                 TextSpan(
                   text: sentiment,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic,
@@ -77,12 +77,12 @@ class _RailAnubhavPageState extends State<RailAnubhavPage> {
               ],
             ),
           ),
-          duration: Duration(seconds: 6), // Adjust duration as needed
+          duration: const Duration(seconds: 6), // Adjust duration as needed
         ),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Please write a review before submitting.'),
           duration: Duration(seconds: 6),
         ),
@@ -110,21 +110,21 @@ class _RailAnubhavPageState extends State<RailAnubhavPage> {
               padding: const EdgeInsets.only(left: 16.0, right: 16, top: 32),
               child: Column(
                 children: [
-                  Text(
+                  const Text(
                     "Give Your Feedback & Rating",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   RatingBar.builder(
                     initialRating: _rating,
                     minRating: 1,
                     direction: Axis.horizontal,
                     itemCount: 5,
-                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                    itemBuilder: (context, _) => Icon(
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    itemBuilder: (context, _) => const Icon(
                       Icons.star,
                       color: Colors.amber,
                     ),
@@ -134,7 +134,7 @@ class _RailAnubhavPageState extends State<RailAnubhavPage> {
                       });
                     },
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Container(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -148,9 +148,9 @@ class _RailAnubhavPageState extends State<RailAnubhavPage> {
                           ),
                         ),
                         const SizedBox(height: 4),
-                        Text(
+                        const Text(
                           'Give Your Valuable Feedback Below',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
@@ -158,7 +158,7 @@ class _RailAnubhavPageState extends State<RailAnubhavPage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   TextField(
                     controller: _reviewController,
                     maxLines: 4,
@@ -169,7 +169,7 @@ class _RailAnubhavPageState extends State<RailAnubhavPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -177,14 +177,14 @@ class _RailAnubhavPageState extends State<RailAnubhavPage> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
                               const Color.fromARGB(255, 176, 213, 243),
-                          minimumSize: Size(150, 50),
+                          minimumSize: const Size(150, 50),
                         ),
                         onPressed: _submitReview,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.check,
                           color: Colors.black,
                         ),
-                        label: Text(
+                        label: const Text(
                           "Submit",
                           style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
@@ -193,14 +193,14 @@ class _RailAnubhavPageState extends State<RailAnubhavPage> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
                               const Color.fromARGB(255, 176, 213, 243),
-                          minimumSize: Size(150, 50),
+                          minimumSize: const Size(150, 50),
                         ),
                         onPressed: _shareReview,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.share,
                           color: Colors.black,
                         ),
-                        label: Text(
+                        label: const Text(
                           "Share",
                           style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
@@ -212,7 +212,7 @@ class _RailAnubhavPageState extends State<RailAnubhavPage> {
             ),
           ),
           if (_isLoading)
-            Center(
+            const Center(
               child: CircularProgressIndicator(
                 color: Colors.blue,
               ),
