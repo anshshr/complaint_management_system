@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:lottie/lottie.dart';
 import 'dart:convert';
 import 'package:timeline_tile/timeline_tile.dart';
 
@@ -75,9 +76,24 @@ class _TrainTrackingScreenState extends State<TrainTrackingScreen> {
             ),
             const SizedBox(height: 20),
             if (_isLoading)
-              const Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              SingleChildScrollView(
+                child: Center(
+                  child: Container(
+                    color: Colors.white.withOpacity(0.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Lottie.asset('assets/animation/train1.json'),
+                        Text(
+                          'On Track, Almost there ...',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w800),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               )
             else if (_trainName.isNotEmpty)
@@ -179,7 +195,7 @@ class _TrainTrackingScreenState extends State<TrainTrackingScreen> {
                     )
                   : const Center(
                       child: Text(
-                        'No train data found',
+                        '',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),

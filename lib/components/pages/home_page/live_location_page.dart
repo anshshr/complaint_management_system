@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:lottie/lottie.dart';
 
 class LiveLocationPage extends StatefulWidget {
   const LiveLocationPage({super.key});
@@ -11,48 +12,74 @@ class LiveLocationPage extends StatefulWidget {
 
 class _LiveLocationPageState extends State<LiveLocationPage> {
   String _locationMessage = "";
+  bool _isLoading = false;
 
   Future<void> _getCurrentLocation() async {
-    // Check for permissions
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      setState(() {
-        _locationMessage = "Location services are disabled.";
-      });
-      return;
-    }
+    setState(() {
+      _isLoading = true;
+    });
 
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission != LocationPermission.whileInUse &&
-          permission != LocationPermission.always) {
+    try {
+      // Check for permissions
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
         setState(() {
-          _locationMessage = "Location permissions are denied";
+          _locationMessage = "Location services are disabled.";
+          _isLoading = false;
         });
         return;
       }
+
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission != LocationPermission.whileInUse &&
+            permission != LocationPermission.always) {
+          setState(() {
+            _locationMessage = "Location permissions are denied";
+            _isLoading = false;
+          });
+          return;
+        }
+      }
+
+      // Attempt to get the last known location first
+      Position? position = await Geolocator.getLastKnownPosition();
+      if (position == null) {
+        // If no last known location, request a new position
+        position = await Geolocator.getCurrentPosition(
+          desiredAccuracy:
+              LocationAccuracy.low, // Lower accuracy for faster response
+        );
+      }
+
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+
+      setState(() {
+        _locationMessage =
+            "Latitude: ${position?.latitude}\nLongitude: ${position?.longitude}\n\n"
+            "Address: ${placemarks.first.street ?? ''}, ${placemarks.first.locality ?? ''}, ${placemarks.first.country ?? ''}";
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _locationMessage = "Error: ${e.toString()}";
+        _isLoading = false;
+      });
     }
-
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
-
-    setState(() {
-      _locationMessage =
-          "Latitude: ${position.latitude}\nLongitude: ${position.longitude}\n\n"
-          "Address: ${placemarks.first.street ?? ''}, ${placemarks.first.locality ?? ''}, ${placemarks.first.country ?? ''}";
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade50, // Light blue background
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Live Location'),
+        title: Text(
+          'Live Location',
+          style: TextStyle(
+              color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+        ),
         backgroundColor: Colors.blue,
       ),
       body: Padding(
@@ -71,16 +98,29 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
                 ),
                 child: const Text('Get Current Location'),
               ),
-              const SizedBox(height: 20),
-              Text(
-                _locationMessage,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black87,
-                ),
-              ),
+              SizedBox(height: 20),
+              _isLoading
+                  ? Lottie.asset(
+                      'assets/animation/dept1.json',
+                      width: 150,
+                      height: 150,
+                    )
+                  : Card(
+                      elevation: 2,
+                      color: Colors.blue[100],
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          _locationMessage,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
             ],
           ),
         ),

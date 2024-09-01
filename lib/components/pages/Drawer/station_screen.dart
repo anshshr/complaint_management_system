@@ -1,6 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:lottie/lottie.dart';
 
 class StationScreen extends StatefulWidget {
   const StationScreen({super.key});
@@ -70,9 +74,22 @@ class _StationScreenState extends State<StationScreen> {
             const SizedBox(height: 20),
             Expanded(
               child: _isLoading
-                  ? const Center(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  ? Center(
+                      child: Container(
+                        color: Colors.white.withOpacity(0.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Lottie.asset('assets/animation/train1.json'),
+                            Text(
+                              'On Track, Almost there ...',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w800),
+                            )
+                          ],
+                        ),
                       ),
                     )
                   : _stationData.isNotEmpty
