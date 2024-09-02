@@ -29,7 +29,7 @@ class _TrainStationPageState extends State<TrainStationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.white,
         title: Text(
           _selectedIndex == 0 ? 'Station' : 'Live Train Status',
           style: const TextStyle(

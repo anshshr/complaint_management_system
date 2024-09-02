@@ -139,7 +139,7 @@ class _ParcelInquiryState extends State<ParcelInquiry> {
           style: TextStyle(
               color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.blue[400],
       ),
       body: Container(
         padding: const EdgeInsets.all(15),

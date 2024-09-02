@@ -1,24 +1,35 @@
+import 'dart:io' as io;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/complaint.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/complaint_history_page.dart';
 import 'package:complaint_management_system/components/pages/feedback.dart';
 import 'package:complaint_management_system/components/pages/home_page/chat_page.dart';
+import 'package:complaint_management_system/components/pages/home_page/home_page_content.dart';
 import 'package:complaint_management_system/components/pages/home_page/live_location_page.dart';
 import 'package:complaint_management_system/provider/language_provider.dart';
 import 'package:complaint_management_system/utils/widgets/custom_drawer.dart';
+import 'package:complaint_management_system/utils/widgets/language_dailog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quick_actions/quick_actions.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   final String username;
 
-  HomePage(
+  const HomePage(
       {super.key,
       required this.username,
       required Null Function(String languageCode) changeLanguage});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
   final ValueNotifier<int> _currentPage = ValueNotifier<int>(0);
+  final QuickActions quickActions = const QuickActions();
 
   final List<String> _pageTitles = [
     'Home Page',
@@ -27,7 +38,84 @@ class HomePage extends StatelessWidget {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    initializeQuickActions();
+  }
+
+  void initializeQuickActions() {
+    quickActions.initialize((shortcutType) {
+      if (shortcutType != null) {
+        _handleShortcutItemPressed(shortcutType);
+      }
+    });
+
+    quickActions.setShortcutItems([
+      const ShortcutItem(
+        type: 'open_complaint',
+        localizedTitle: 'Complaint',
+        icon: 'indianrail',
+      ),
+      const ShortcutItem(
+        type: 'open_website',
+        localizedTitle: 'Open Website',
+        icon: 'indianrail',
+      ),
+    ]);
+  }
+
+  void _handleShortcutItemPressed(String shortcutType) {
+    switch (shortcutType) {
+      case 'open_complaint':
+        _navigateToPage(1);
+        break;
+      case 'open_website':
+        _launchURL(_buildDynamicURL());
+        break;
+      default:
+        break;
+    }
+  }
+
+  String _buildDynamicURL() {
+    final platform = io.Platform.isAndroid ? "android" : "iOS";
+    final url = 'https://rail-madad.vercel.app/';
+    return url;
+  }
+
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      print('Could not launch $url');
+    }
+  }
+
+  void _navigateToPage(int index) {
+    _currentPage.value = index;
+    _pageController.jumpToPage(index);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    _currentPage.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // Define your image paths
+    final List<String> imagesLocation = [
+      'assets/home/complaint.png',
+      'assets/home/urgency.png',
+      'assets/home/routing.png',
+      'assets/home/setiment.png',
+      'assets/home/monitor.webp',
+      'assets/home/inquiry.webp',
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: ValueListenableBuilder<int>(
@@ -35,7 +123,10 @@ class HomePage extends StatelessWidget {
           builder: (context, pageIndex, child) {
             return Text(
               _pageTitles[pageIndex],
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black),
             );
           },
         ),
@@ -47,7 +138,7 @@ class HomePage extends StatelessWidget {
               color: Colors.black,
             ),
             onPressed: () {
-              _showLanguageDialog(context);
+              showLanguageDialog(context);
             },
           ),
           IconButton(
@@ -64,29 +155,30 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      drawer: CustomDrawer(username: username),
+      drawer: CustomDrawer(username: widget.username),
       bottomNavigationBar: ValueListenableBuilder<int>(
         valueListenable: _currentPage,
         builder: (context, pageIndex, child) {
           return BottomNavigationBar(
             currentIndex: pageIndex,
+            selectedItemColor: Colors.blue,
+            unselectedItemColor: Colors.black87,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home, color: Colors.black87),
+                icon: Icon(Icons.home),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.compass_calibration, color: Colors.black87),
+                icon: Icon(Icons.compass_calibration),
                 label: 'Complaint',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.feedback, color: Colors.black87),
+                icon: Icon(Icons.feedback),
                 label: 'Feedback',
               ),
             ],
             onTap: (index) {
-              _currentPage.value = index;
-              _pageController.jumpToPage(index);
+              _navigateToPage(index);
             },
           );
         },
@@ -97,9 +189,11 @@ class HomePage extends StatelessWidget {
           _currentPage.value = index;
         },
         children: [
-          homepage(context),
+          HomePageContent(imagesLocation: imagesLocation),
           const Complaint(),
-          FeedbackPage(username: username),
+          FeedbackPage(
+            username: widget.username,
+          ),
         ],
       ),
     );

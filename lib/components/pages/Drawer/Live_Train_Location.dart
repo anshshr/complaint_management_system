@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'dart:convert';
 import 'package:timeline_tile/timeline_tile.dart';
+import 'package:intl/intl.dart'; // For time formatting
 
 class TrainTrackingScreen extends StatefulWidget {
   const TrainTrackingScreen({super.key});
@@ -45,6 +46,24 @@ class _TrainTrackingScreenState extends State<TrainTrackingScreen> {
     }
   }
 
+  bool _isCurrentStation(String? stationTiming) {
+    if (stationTiming == null || stationTiming.isEmpty) {
+      return false;
+    }
+
+    try {
+      final now = DateTime.now();
+      final formatter = DateFormat('HH:mm');
+      final stationTime = formatter.parse(stationTiming);
+
+      return now.isAfter(stationTime.subtract(Duration(minutes: 10))) &&
+          now.isBefore(stationTime.add(Duration(minutes: 10)));
+    } catch (e) {
+      print('Error parsing station time: $e');
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,23 +95,26 @@ class _TrainTrackingScreenState extends State<TrainTrackingScreen> {
             ),
             const SizedBox(height: 20),
             if (_isLoading)
-              SingleChildScrollView(
+              Expanded(
                 child: Center(
-                  child: Container(
-                    color: Colors.white.withOpacity(0.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Lottie.asset('assets/animation/train1.json'),
-                        Text(
-                          'On Track, Almost there ...',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                              fontWeight: FontWeight.w800),
-                        )
-                      ],
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Lottie.asset(
+                          'assets/animation/train1.json',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'On Track, Almost there ...',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800),
+                      ),
+                    ],
                   ),
                 ),
               )
@@ -134,6 +156,9 @@ class _TrainTrackingScreenState extends State<TrainTrackingScreen> {
                       itemCount: _trainData.length,
                       itemBuilder: (context, index) {
                         final station = _trainData[index];
+                        final isCurrentStation =
+                            _isCurrentStation(station['timing'] as String?);
+
                         return TimelineTile(
                           alignment: TimelineAlign.manual,
                           lineXY: 0.1,
@@ -141,9 +166,8 @@ class _TrainTrackingScreenState extends State<TrainTrackingScreen> {
                           isLast: index == _trainData.length - 1,
                           indicatorStyle: IndicatorStyle(
                             width: 20,
-                            color: station['is_current_station']
-                                ? Colors.green
-                                : Colors.white,
+                            color:
+                                isCurrentStation ? Colors.green : Colors.white,
                             indicatorXY: 0.5,
                           ),
                           startChild: Container(
@@ -186,18 +210,16 @@ class _TrainTrackingScreenState extends State<TrainTrackingScreen> {
                               ],
                             ),
                           ),
-                          beforeLineStyle: const LineStyle(
-                            color: Colors.white,
+                          beforeLineStyle: LineStyle(
+                            color:
+                                isCurrentStation ? Colors.green : Colors.white,
                             thickness: 4,
                           ),
                         );
                       },
                     )
-                  : const Center(
-                      child: Text(
-                        '',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                  : Center(
+                      child: Text(''),
                     ),
             ),
           ],

@@ -1,11 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:lottie/lottie.dart';
 
 class RolesResponsibilities extends StatefulWidget {
-  String deptName;
-  RolesResponsibilities({
+  final String deptName;
+  const RolesResponsibilities({
     super.key,
     required this.deptName,
   });
@@ -16,24 +15,20 @@ class RolesResponsibilities extends StatefulWidget {
 
 class _RolesResponsibilitiesState extends State<RolesResponsibilities> {
   String? res;
-  bool isloaded = false;
+  bool isLoaded = false;
+
   Future getResponsibilities(String name) async {
     final gemini = Gemini.instance;
 
     gemini
         .text(
-            "You are the station master at a busy railway station. Your task is to explain the roles and responsibilities of various railway departments in a clear,simple and detailed manner. For each department, provide an easy-to-understand description of what they do and how they contribute to the smooth operation of the railway station. Be concise and make sure the information is accessible to everyone, even those with no prior knowledge of the railway system, and the department name is${widget.deptName}")
+            "You are the station master at a busy railway station. Your task is to explain the roles and responsibilities of various railway departments in a clear, simple, and detailed manner. For each department, provide an easy-to-understand description of what they do and how they contribute to the smooth operation of the railway station. Be concise and make sure the information is accessible to everyone, even those with no prior knowledge of the railway system. The department name is ${widget.deptName}")
         .then((value) {
-      print(value?.output);
       setState(() {
-        res = value?.output!.replaceAll('*', ' ');
-
-        isloaded = true;
+        res = value?.output?.replaceAll('*', ' ');
+        isLoaded = true;
       });
-    })
-
-        /// or value?.content?.parts?.last.text
-        .catchError((e) => print(e.toString()));
+    }).catchError((e) => print(e.toString()));
   }
 
   @override
@@ -45,59 +40,72 @@ class _RolesResponsibilitiesState extends State<RolesResponsibilities> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          '${widget.deptName}',
+          style: TextStyle(
+              color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+        ),
+        backgroundColor: Colors.blue[400],
+        centerTitle: true,
+      ),
       body: Container(
-          padding: const EdgeInsets.only(top: 40),
-          height: double.infinity,
-          width: double.infinity,
-          color: Colors.red[100],
-          child: isloaded == true
-              ? SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Text(
-                        textAlign: TextAlign.center,
-                        '${widget.deptName} Roles and Responsibilities',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+        padding: const EdgeInsets.all(20),
+        color: Colors.blue[50],
+        child: isLoaded
+            ? SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Roles and Responsibilities',
+                      style: TextStyle(
+                        color: Colors.blue[900],
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
                       ),
-                      Card(
-                        margin: const EdgeInsets.only(
-                            bottom: 20, left: 20, right: 20),
-                        color: Colors.grey[100],
-                        shadowColor: Colors.grey[100],
-                        elevation: 10,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 30.0, vertical: 20),
-                          child: Text(
-                            textAlign: TextAlign.left,
-                            res ?? '',
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 17),
+                    ),
+                    const SizedBox(height: 20),
+                    Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      elevation: 5,
+                      shadowColor: Colors.blue[200],
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Text(
+                          res ?? '',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.black87,
+                            height: 1.5,
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                )
-              : Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Lottie.asset('assets/animation/dept1.json',
-                          height: 200, width: 200),
-                      SizedBox(
-                        height: 10,
+                    ),
+                  ],
+                ),
+              )
+            : Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset('assets/animation/dept1.json',
+                        height: 200, width: 200),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Loading, please wait...',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
                       ),
-                      const Text(
-                        'Loading...',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                    ],
-                  ),
-                )),
+                    ),
+                  ],
+                ),
+              ),
+      ),
     );
   }
 }

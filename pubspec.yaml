@@ -64,6 +64,7 @@ dependencies:
   audioplayers: ^6.1.0
   lottie: ^3.1.2
   google_generative_ai: ^0.4.5
+  quick_actions: ^1.0.7
  
 flutter_launcher_icons:
   android: true

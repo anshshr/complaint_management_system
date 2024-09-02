@@ -1,33 +1,46 @@
 import 'package:complaint_management_system/components/pages/training%20and%20support/details.dart';
+import 'package:complaint_management_system/utils/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
 class Department extends StatelessWidget {
   Department({super.key});
 
-  Widget departmentCard(String name, String imagePath, VoidCallback ontap) {
+  Widget departmentCard(String name, String imagePath, VoidCallback onTap) {
     return InkWell(
-      onTap: ontap,
+      onTap: onTap,
       child: Card(
-        color: Colors.grey[100],
-        shadowColor: Colors.grey[100],
-        elevation: 2,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              imagePath,
-              height: 70,
-            ),
-            const SizedBox(height: 6),
-            Text(
-              name,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
+        color: Colors.white,
+        shadowColor: Colors.grey[300],
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  imagePath,
+                  height: 80,
+                  width: 80,
+                  fit: BoxFit.contain,
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 10),
+              Text(
+                name,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: Colors.black87,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -53,66 +66,54 @@ class Department extends StatelessWidget {
     'Food Department',
   ];
 
-  final List<Widget> departmentPages = [];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
         title: const Text(
           'Railway Departments',
           style: TextStyle(
             fontWeight: FontWeight.w500,
-            fontSize: 20,
+            fontSize: 18,
           ),
         ),
-        backgroundColor: Colors.red[100],
+        backgroundColor: Colors.blue[400],
       ),
-      drawer: const Drawer(),
+      drawer: CustomDrawer(
+        username: '',
+      ),
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        color: Colors.red[100],
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 1.0,
-                  crossAxisCount: 2,
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                itemCount: departments.length,
-                itemBuilder: (context, index) {
-                  return departmentCard(
-                    departments[index],
-                    deptImages[index],
-                    () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Details(
-                            Deptname: departments[index],
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
-            ],
+        padding: const EdgeInsets.all(10),
+        color: Colors.blue[50],
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 15,
+            childAspectRatio: 1.0,
+            crossAxisCount: 2,
           ),
+          padding: const EdgeInsets.all(10),
+          shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
+          itemCount: departments.length,
+          itemBuilder: (context, index) {
+            return departmentCard(
+              departments[index],
+              deptImages[index],
+              () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Details(
+                      Deptname: departments[index],
+                    ),
+                  ),
+                );
+              },
+            );
+          },
         ),
       ),
     );
