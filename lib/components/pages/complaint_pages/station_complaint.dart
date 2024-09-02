@@ -3,6 +3,10 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/train_complaint.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/widgets/media_conatiner.dart';
+import 'package:complaint_management_system/services/api/gemini_services.dart';
+import 'package:complaint_management_system/services/api/get_image_descripton.dart';
+import 'package:complaint_management_system/services/api/station_complaints_api.dart';
+import 'package:complaint_management_system/utils/widgets/custom_dialogbox.dart';
 import 'package:complaint_management_system/utils/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -25,7 +29,8 @@ class _StationComplaintState extends State<StationComplaint> {
   final TextStyle style =
       const TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
   final picker = ImagePicker();
-  List media_type = [];
+  List media_data = [];
+  List<String> media_path = [];
 
   late AudioPlayer audioPlayer;
   late AudioRecorder audioRecorder;
@@ -53,7 +58,7 @@ class _StationComplaintState extends State<StationComplaint> {
   //   if (path != null) {
   //     setState(() {
   //       audioFile = File(path);
-  //       media_type.add(audioFile);
+  //       media_data.add(audioFile);
   //       isRecording = false;
   //     });
   //   }
@@ -93,7 +98,8 @@ class _StationComplaintState extends State<StationComplaint> {
 
                     setState(() {
                       image = File(path);
-                      media_type.add(image);
+                      media_data.add(image);
+                      media_path.add(path);
                     });
                     Navigator.pop(context);
                   },
@@ -115,7 +121,8 @@ class _StationComplaintState extends State<StationComplaint> {
 
                     setState(() {
                       video = File(path);
-                      media_type.add(video);
+                      media_data.add(video);
+                      media_path.add(path);
                     });
                     Navigator.pop(context);
                   },
@@ -135,7 +142,8 @@ class _StationComplaintState extends State<StationComplaint> {
 
                     setState(() {
                       image = File(path);
-                      media_type.add(image);
+                      media_data.add(image);
+                      media_path.add(path);
                     });
                     Navigator.pop(context);
                   },
@@ -218,17 +226,17 @@ class _StationComplaintState extends State<StationComplaint> {
           const SizedBox(
             height: 15,
           ),
-          media_type.length != 0
+          media_data.length != 0
               ? SizedBox(
                   height: 90,
                   width: double.infinity,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: media_type.length,
+                    itemCount: media_data.length,
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return MediaConatiner(mediaUrl: media_type[index]);
+                      return MediaConatiner(mediaUrl: media_data[index]);
                     },
                   ),
                 )
@@ -242,8 +250,38 @@ class _StationComplaintState extends State<StationComplaint> {
               const SizedBox(
                 width: 20,
               ),
-              complaint_button('SUBMIT', () {
-                //submit the things
+              complaint_button('SUBMIT', () async {
+                if (stationname.text != '' &&
+                    stationname.text != null &&
+                    problem.text != "" &&
+                    problem.text != null) {
+                  String depart_name = media_data.length != 0
+                      ? await GetImage(image!,
+                          "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department. Provide only one department name exactly as listed.")
+                      : await get_repsonse(
+                          "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department. Provide only one department name exactly as listed.");
+                  print(depart_name.replaceAll("*", ""));
+                  await station_complaint(
+                      stationname.text,
+                      datetime.text,
+                      problem.text,
+                      depart_name.replaceAll("*", ""),
+                      media_path);
+                  //notifying the user
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                          'your complaint has been registered to the ${depart_name.replaceAll("*", "")} department')));
+                  //clearing the fields
+                  setState(() {
+                    media_data = [];
+                    media_path = [];
+                    problem.clear();
+                    datetime.clear();
+                    stationname.clear();
+                  });
+                } else {
+                  customDialog(context, 'Please fill all the details');
+                }
               }),
             ],
           ),

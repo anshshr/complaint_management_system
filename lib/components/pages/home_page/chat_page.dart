@@ -20,7 +20,7 @@ class _ChatPageState extends State<ChatPage> {
   List messages = [];
 
   Future<void> getanswers(String data) async {
-    String geminiReponse = await gemini_api.getgeminidata(data);
+    String geminiReponse = await get_repsonse(data);
     setState(() {
       messages.add(BotChatText(text: geminiReponse));
     });
@@ -48,6 +48,7 @@ class _ChatPageState extends State<ChatPage> {
         child: Stack(
           children: [
             ListView.builder(
+              padding: EdgeInsets.only(bottom: 60),
               itemCount: messages.length,
               itemBuilder: (context, index) {
                 return messages[index];
@@ -63,11 +64,13 @@ class _ChatPageState extends State<ChatPage> {
                   textInputType: TextInputType.multiline,
                   suffixicon: IconButton(
                       onPressed: () async {
+                        String temp = '';
                         setState(() {
                           messages.add(MyChatText(text: messageContoller.text));
+                          temp = messageContoller.text;
                           messageContoller.text = '';
                         });
-                        getanswers(messageContoller.text);
+                        getanswers(temp);
                       },
                       icon: Icon(
                         Icons.send,

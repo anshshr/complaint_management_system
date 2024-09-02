@@ -1,12 +1,12 @@
 import 'dart:io';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:complaint_management_system/components/pages/complaint_pages/complaint_details.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/widgets/media_conatiner.dart';
+import 'package:complaint_management_system/services/api/gemini_services.dart';
+import 'package:complaint_management_system/services/api/get_image_descripton.dart';
+import 'package:complaint_management_system/services/api/train_complaints_api.dart';
 import 'package:complaint_management_system/utils/widgets/custom_dialogbox.dart';
 import 'package:complaint_management_system/utils/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:record/record.dart';
 
 class TrainComplaint extends StatefulWidget {
   TrainComplaint({super.key});
@@ -29,51 +29,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
       const TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
   final picker = ImagePicker();
   List media_data = [];
-
-  // late AudioPlayer audioPlayer;
-  // late AudioRecorder audioRecorder;
-  bool isRecording = false;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   audioPlayer = AudioPlayer();
-  //   audioRecorder = AudioRecorder();
-  // }
-
-  // Future<void> startRecording() async {
-  //   print('entered start recording');
-  //   try {
-  //     if (await audioRecorder.hasPermission()) {
-  //       await audioRecorder.start(
-  //         path: 'C:\Users\anshs\OneDrive\Documents\recorded audio',
-  //         RecordConfig(),
-  //       );
-  //       setState(() {
-  //         isRecording = true;
-  //       });
-  //     }
-  //   } catch (e) {
-  //     print('error strat recording' + e.toString());
-  //   }
-  // }
-
-  // Future<void> stopRecording() async {
-  //   print('entered stop recording');
-
-  //   try {
-  //     final path = await audioRecorder.stop();
-  //     if (path != null) {
-  //       setState(() {
-  //         audioFile = File(path);
-  //         media_data.add(audioFile);
-  //         isRecording = false;
-  //       });
-  //     }
-  //   } catch (e) {
-  //     print('error occured recording' + e.toString());
-  //   }
-  // }
+  List<String> media_path = [];
 
   Future<void> show_bottom_sheet(BuildContext context) async {
     return showModalBottomSheet(
@@ -110,6 +66,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
                     setState(() {
                       image = File(path);
                       media_data.add(image);
+                      media_path.add(path);
                     });
                     Navigator.pop(context);
                   },
@@ -132,6 +89,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
                     setState(() {
                       video = File(path);
                       media_data.add(video);
+                      media_path.add(path);
                     });
                     Navigator.pop(context);
                   },
@@ -152,6 +110,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
                     setState(() {
                       image = File(path);
                       media_data.add(image);
+                      media_path.add(path);
                     });
                     Navigator.pop(context);
                   },
@@ -164,17 +123,9 @@ class _TrainComplaintState extends State<TrainComplaint> {
               const SizedBox(height: 15),
               InkWell(
                   onTap: () async {
-                    // print('record function');
-                    // if (isRecording) {
-                    //   await stopRecording();
-                    // } else {
-                    //   await startRecording();
-                    // }
-                    // print('record function edn');
-                    // Navigator.pop(context);
+                    Navigator.pop(context);
                   },
-                  child: Text(isRecording ? 'STOP RECORDING' : 'RECORD AUDIO',
-                      style: style)),
+                  child: Text('STOP RECORDING', style: style)),
               const SizedBox(
                 height: 10,
               ),
@@ -205,18 +156,18 @@ class _TrainComplaintState extends State<TrainComplaint> {
               height: 15,
             ),
             CustomTextfield(
-                hinttext: 'Enter you Train No.',
+                hinttext: 'Enter you Train Name',
                 obscurePassword: false,
-                labeltext: 'Train No.',
-                textInputType: TextInputType.number,
+                labeltext: 'Train Name.',
+                textInputType: TextInputType.text,
                 controller: trainno),
             const SizedBox(
               height: 15,
             ),
             CustomTextfield(
-                hinttext: 'Enter you Train PRN No.',
+                hinttext: 'Enter you Train PNR No.',
                 obscurePassword: false,
-                labeltext: 'PRN No.',
+                labeltext: 'PNR No.',
                 textInputType: TextInputType.number,
                 controller: prno),
             const SizedBox(
@@ -269,7 +220,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
                       physics: const ClampingScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return MediaConatiner(mediaUrl: media_data[index]);
+                        return MediaConatiner(mediaUrl: media_data[index]!);
                       },
                     ),
                   )
@@ -286,18 +237,40 @@ class _TrainComplaintState extends State<TrainComplaint> {
                 const SizedBox(
                   width: 20,
                 ),
-                complaint_button('SUBMIT', () {
+                complaint_button('SUBMIT', () async {
                   //submit the things
                   if (desc.text != null &&
                       problem.text != '' &&
                       desc.text != '' &&
-                      trainno.text != '') {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ComplaintDetails(
-                              problem: problem.text, file: image!),
-                        ));
+                      prno.text != '') {
+                    String depart_name = media_data.length != 0
+                        ? await GetImage(image!,
+                            "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department. Provide only one department name exactly as listed.")
+                        : await get_repsonse(
+                            "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department. Provide only one department name exactly as listed.");
+                    print(depart_name.replaceAll("*", ""));
+                    //save the data
+                    await register_train_compalint(
+                        desc.text,
+                        trainno.text,
+                        int.parse(prno.text),
+                        datetime.text,
+                        media_path,
+                        depart_name.replaceAll("*", ""));
+                    //notifying the user
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                            'your complaint has been registered to the ${depart_name.replaceAll("*", "")} department')));
+                    //clearing the fields
+                    setState(() {
+                      media_data = [];
+                      media_path = [];
+                      desc.clear();
+                      problem.clear();
+                      prno.clear();
+                      trainno.clear();
+                      datetime.clear();
+                    });
                   } else {
                     customDialog(
                         context, 'Please Enter all the necessary Details');
