@@ -3,6 +3,8 @@ import 'package:complaint_management_system/components/pages/register_page.dart'
 import 'package:flutter/material.dart';
 
 class IntroductoryPages extends StatefulWidget {
+  const IntroductoryPages({super.key});
+
   @override
   _IntroductoryPagesState createState() => _IntroductoryPagesState();
 }
@@ -14,12 +16,12 @@ class _IntroductoryPagesState extends State<IntroductoryPages> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(Duration(seconds: 3), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 3), (Timer timer) {
       if (_currentPage < 3) {
         _currentPage++;
         _pageController.animateToPage(
           _currentPage,
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
           curve: Curves.easeIn,
         );
       } else {
@@ -128,8 +130,8 @@ class _IntroductoryPagesState extends State<IntroductoryPages> {
 
   Widget buildDot({required int index}) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 300),
-      margin: EdgeInsets.symmetric(horizontal: 5),
+      duration: const Duration(milliseconds: 300),
+      margin: const EdgeInsets.symmetric(horizontal: 5),
       height: 10,
       width: _currentPage == index ? 20 : 10,
       decoration: BoxDecoration(

@@ -28,7 +28,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   final bool isLoggedIn;
 
-  MyApp({required this.isLoggedIn});
+  const MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
               username: 'User',
               changeLanguage: (String languageCode) {},
             )
-          : SplashScreen(),
+          : const SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

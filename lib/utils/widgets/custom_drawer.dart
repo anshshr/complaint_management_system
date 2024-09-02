@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 class CustomDrawer extends StatelessWidget {
   final String username;
 
-  CustomDrawer({super.key, required this.username});
+  const CustomDrawer({super.key, required this.username});
 
   @override
   Widget build(BuildContext context) {

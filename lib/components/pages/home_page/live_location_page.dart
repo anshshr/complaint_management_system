@@ -4,6 +4,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:lottie/lottie.dart';
 
 class LiveLocationPage extends StatefulWidget {
+  const LiveLocationPage({super.key});
+
   @override
   _LiveLocationPageState createState() => _LiveLocationPageState();
 }
@@ -91,10 +93,10 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.blue, // Text color
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   elevation: 5,
                 ),
-                child: Text('Get Current Location'),
+                child: const Text('Get Current Location'),
               ),
               SizedBox(height: 20),
               _isLoading

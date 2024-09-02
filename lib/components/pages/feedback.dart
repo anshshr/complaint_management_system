@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class FeedbackPage extends StatefulWidget {
   final String username;
 
-  const FeedbackPage({Key? key, required this.username}) : super(key: key);
+  const FeedbackPage({super.key, required this.username});
 
   @override
   State<FeedbackPage> createState() => _FeedbackPageState();
@@ -39,7 +39,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    SuggestionPage(),
+                    const SuggestionPage(),
                     RailAnubhavPage(username: widget.username),
                   ],
                 ),
