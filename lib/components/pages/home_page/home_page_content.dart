@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/complaint_history_page.dart';
+import 'package:complaint_management_system/components/pages/home_page/chat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:complaint_management_system/utils/widgets/custom_slider_container.dart';
 
@@ -76,6 +77,34 @@ class HomePageContent extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             SolvedComplaintsTab(),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChatPage(),
+                    ));
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 10.0, top: 50),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    height: 80,
+                    width: 80,
+                    decoration: BoxDecoration(
+                        color: Colors.amber,
+                        image: const DecorationImage(
+                            fit: BoxFit.cover,
+                            alignment: Alignment.topCenter,
+                            image: NetworkImage(
+                                'https://www.shutterstock.com/image-illustration/3d-illustration-little-robot-fat-260nw-1640636815.jpg')),
+                        border: Border.all(width: 2, color: Colors.black87),
+                        borderRadius: BorderRadius.circular(40)),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
