@@ -40,7 +40,7 @@ class _TrackComplaintState extends State<TrackComplaint> {
             children: [
               TextFormField(
                 controller: _controller,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Enter 10-digit Reference Number',
                   border: OutlineInputBorder(),
                 ),
@@ -56,7 +56,7 @@ class _TrackComplaintState extends State<TrackComplaint> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -66,7 +66,7 @@ class _TrackComplaintState extends State<TrackComplaint> {
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.blue,
                     ),
-                    child: Text('Track Complaint'),
+                    child: const Text('Track Complaint'),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -81,11 +81,11 @@ class _TrackComplaintState extends State<TrackComplaint> {
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.blue,
                     ),
-                    child: Text('Complaint History'),
+                    child: const Text('Complaint History'),
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               if (_isValid)
                 Expanded(
                   child: ListView.builder(
@@ -159,9 +159,9 @@ class _TrackComplaintState extends State<TrackComplaint> {
           children: [
             Text(
               timelineData[index]['title'],
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 6),
+            const SizedBox(height: 6),
             Text(timelineData[index]['subtitle']),
           ],
         ),

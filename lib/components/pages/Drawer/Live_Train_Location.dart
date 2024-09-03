@@ -6,12 +6,14 @@ import 'package:timeline_tile/timeline_tile.dart';
 import 'package:intl/intl.dart'; // For time formatting
 
 class TrainTrackingScreen extends StatefulWidget {
+  const TrainTrackingScreen({super.key});
+
   @override
   _TrainTrackingScreenState createState() => _TrainTrackingScreenState();
 }
 
 class _TrainTrackingScreenState extends State<TrainTrackingScreen> {
-  TextEditingController _trainNumberController = TextEditingController();
+  final TextEditingController _trainNumberController = TextEditingController();
   List<dynamic> _trainData = [];
   String _trainName = '';
   String _lastMessage = '';
@@ -81,7 +83,7 @@ class _TrainTrackingScreenState extends State<TrainTrackingScreen> {
                   hintText: 'Enter train number',
                   hintStyle: TextStyle(color: Colors.grey[700]),
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(16.0),
+                  contentPadding: const EdgeInsets.all(16.0),
                   suffixIcon: IconButton(
                     icon: Icon(Icons.search, color: Colors.blue[900]),
                     onPressed: () {
@@ -91,7 +93,7 @@ class _TrainTrackingScreenState extends State<TrainTrackingScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (_isLoading)
               Expanded(
                 child: Center(
@@ -134,12 +136,12 @@ class _TrainTrackingScreenState extends State<TrainTrackingScreen> {
                         color: Colors.blue[900],
                       ),
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       _lastMessage,
                       style: TextStyle(color: Colors.blue[700]),
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       _updatedTime,
                       style: TextStyle(color: Colors.blue[700]),
@@ -147,7 +149,7 @@ class _TrainTrackingScreenState extends State<TrainTrackingScreen> {
                   ],
                 ),
               ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               child: _trainData.isNotEmpty
                   ? ListView.builder(
@@ -178,32 +180,32 @@ class _TrainTrackingScreenState extends State<TrainTrackingScreen> {
                               children: [
                                 Text(
                                   station['station_name'] ?? 'Unknown Station',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                     color: Colors.white,
                                   ),
                                 ),
-                                SizedBox(height: 4),
+                                const SizedBox(height: 4),
                                 Text(
                                   'Distance: ${station['distance'] ?? 'N/A'}',
-                                  style: TextStyle(color: Colors.white70),
+                                  style: const TextStyle(color: Colors.white70),
                                 ),
                                 Text(
                                   'Timing: ${station['timing'] ?? 'N/A'}',
-                                  style: TextStyle(color: Colors.white70),
+                                  style: const TextStyle(color: Colors.white70),
                                 ),
                                 Text(
                                   'Delay: ${station['delay'] ?? 'On Time'}',
-                                  style: TextStyle(color: Colors.white70),
+                                  style: const TextStyle(color: Colors.white70),
                                 ),
                                 Text(
                                   'Platform: ${station['platform'] ?? 'N/A'}',
-                                  style: TextStyle(color: Colors.white70),
+                                  style: const TextStyle(color: Colors.white70),
                                 ),
                                 Text(
                                   'Halt: ${station['halt'] ?? 'N/A'}',
-                                  style: TextStyle(color: Colors.white70),
+                                  style: const TextStyle(color: Colors.white70),
                                 ),
                               ],
                             ),

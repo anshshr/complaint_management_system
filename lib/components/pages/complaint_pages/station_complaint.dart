@@ -1,9 +1,16 @@
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/train_complaint.dart';
+import 'package:complaint_management_system/components/pages/complaint_pages/widgets/media_conatiner.dart';
+import 'package:complaint_management_system/services/api/gemini_services.dart';
+import 'package:complaint_management_system/services/api/get_image_descripton.dart';
+import 'package:complaint_management_system/services/api/station_complaints_api.dart';
+import 'package:complaint_management_system/utils/widgets/custom_dialogbox.dart';
 import 'package:complaint_management_system/utils/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:record/record.dart';
 
 class StationComplaint extends StatefulWidget {
   const StationComplaint({super.key});
@@ -19,8 +26,43 @@ class _StationComplaintState extends State<StationComplaint> {
   File? image;
   File? video;
   File? camera_photo;
-  final TextStyle style = TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+  final TextStyle style =
+      const TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
   final picker = ImagePicker();
+  List media_data = [];
+  List<String> media_path = [];
+
+  late AudioPlayer audioPlayer;
+  late AudioRecorder audioRecorder;
+  bool isRecording = false;
+  // File? audioFile;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   audioPlayer = AudioPlayer();
+  //   audioRecorder = AudioRecorder();
+  // }
+
+  // Future<void> startRecording() async {
+  //   if (await audioRecorder.hasPermission()) {
+  //     await audioRecorder.start(path: './audiorecoord', RecordConfig());
+  //     setState(() {
+  //       isRecording = true;
+  //     });
+  //   }
+  // }
+
+  // Future<void> stopRecording() async {
+  //   final path = await audioRecorder.stop();
+  //   if (path != null) {
+  //     setState(() {
+  //       audioFile = File(path);
+  //       media_data.add(audioFile);
+  //       isRecording = false;
+  //     });
+  //   }
+  // }
 
   Future<void> show_media_options(BuildContext context) async {
     return showModalBottomSheet(
@@ -29,7 +71,7 @@ class _StationComplaintState extends State<StationComplaint> {
       builder: (context) {
         return Container(
           padding: const EdgeInsets.only(top: 20, bottom: 10),
-          height: 300,
+          height: 380,
           width: double.infinity,
           child: Column(
             children: [
@@ -52,10 +94,14 @@ class _StationComplaintState extends State<StationComplaint> {
                     final pickedFile =
                         await picker.pickImage(source: ImageSource.gallery);
                     if (pickedFile == null) return;
+                    final path = pickedFile.path;
 
                     setState(() {
-                      image = pickedFile as File?;
+                      image = File(path);
+                      media_data.add(image);
+                      media_path.add(path);
                     });
+                    Navigator.pop(context);
                   },
                   child: Text('SELECT PHOTO', style: style)),
               const SizedBox(
@@ -71,10 +117,14 @@ class _StationComplaintState extends State<StationComplaint> {
                     final pickedFile =
                         await picker.pickVideo(source: ImageSource.gallery);
                     if (pickedFile == null) return;
+                    final path = pickedFile.path;
 
                     setState(() {
-                      video = pickedFile as File?;
+                      video = File(path);
+                      media_data.add(video);
+                      media_path.add(path);
                     });
+                    Navigator.pop(context);
                   },
                   child: Text('SELECT VIDEO', style: style)),
               const SizedBox(height: 15),
@@ -88,12 +138,29 @@ class _StationComplaintState extends State<StationComplaint> {
                     final pickedFile =
                         await picker.pickImage(source: ImageSource.camera);
                     if (pickedFile == null) return;
+                    final path = pickedFile.path;
 
                     setState(() {
-                      image = pickedFile as File?;
+                      image = File(path);
+                      media_data.add(image);
+                      media_path.add(path);
                     });
+                    Navigator.pop(context);
                   },
                   child: Text('OPEN CAMERA', style: style)),
+              const SizedBox(
+                height: 15,
+              ),
+              const Divider(
+                color: Colors.black87,
+                thickness: 1,
+              ),
+              const SizedBox(height: 15),
+              InkWell(
+                  onTap: () async {
+                    Navigator.pop(context);
+                  },
+                  child: Text('RECORD AUDIO', style: style)),
               const SizedBox(
                 height: 10,
               ),
@@ -109,7 +176,7 @@ class _StationComplaintState extends State<StationComplaint> {
     return Scaffold(
         body: Center(
             child: Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       height: double.infinity,
       width: double.infinity,
       child: SingleChildScrollView(
@@ -143,7 +210,7 @@ class _StationComplaintState extends State<StationComplaint> {
                       }
                     });
                   },
-                  icon: Icon(Icons.calendar_month)),
+                  icon: const Icon(Icons.calendar_month)),
               controller: datetime),
           const SizedBox(
             height: 15,
@@ -159,6 +226,21 @@ class _StationComplaintState extends State<StationComplaint> {
           const SizedBox(
             height: 15,
           ),
+          media_data.length != 0
+              ? SizedBox(
+                  height: 90,
+                  width: double.infinity,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: media_data.length,
+                    physics: const ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return MediaConatiner(mediaUrl: media_data[index]);
+                    },
+                  ),
+                )
+              : SizedBox(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -168,11 +250,41 @@ class _StationComplaintState extends State<StationComplaint> {
               const SizedBox(
                 width: 20,
               ),
-              complaint_button('SUBMIT', () {
-                //submit the things
+              complaint_button('SUBMIT', () async {
+                if (stationname.text != '' &&
+                    stationname.text != null &&
+                    problem.text != "" &&
+                    problem.text != null) {
+                  String depart_name = media_data.length != 0
+                      ? await GetImage(image!,
+                          "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department. Provide only one department name exactly as listed.")
+                      : await get_repsonse(
+                          "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department. Provide only one department name exactly as listed.");
+                  print(depart_name.replaceAll("*", ""));
+                  await station_complaint(
+                      stationname.text,
+                      datetime.text,
+                      problem.text,
+                      depart_name.replaceAll("*", ""),
+                      media_path);
+                  //notifying the user
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                          'your complaint has been registered to the ${depart_name.replaceAll("*", "")} department')));
+                  //clearing the fields
+                  setState(() {
+                    media_data = [];
+                    media_path = [];
+                    problem.clear();
+                    datetime.clear();
+                    stationname.clear();
+                  });
+                } else {
+                  customDialog(context, 'Please fill all the details');
+                }
               }),
             ],
-          )
+          ),
         ],
       )),
     )));

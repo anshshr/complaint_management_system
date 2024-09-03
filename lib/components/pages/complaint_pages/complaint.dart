@@ -21,7 +21,7 @@ class Complaint extends StatelessWidget {
                     indicatorColor: Colors.blue,
                     labelColor: Colors.blue,
                     unselectedLabelColor: Colors.grey[600],
-                    labelStyle: TextStyle(
+                    labelStyle: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -36,8 +36,8 @@ class Complaint extends StatelessWidget {
                   child: TabBarView(
                     children: [
                       TrainComplaint(),
-                      StationComplaint(),
-                      TrackComplaint(),
+                      const StationComplaint(),
+                      const TrackComplaint(),
                     ],
                   ),
                 ),

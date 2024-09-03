@@ -7,12 +7,14 @@ import 'dart:convert';
 import 'package:lottie/lottie.dart';
 
 class StationScreen extends StatefulWidget {
+  const StationScreen({super.key});
+
   @override
   _StationScreenState createState() => _StationScreenState();
 }
 
 class _StationScreenState extends State<StationScreen> {
-  TextEditingController _stationController = TextEditingController();
+  final TextEditingController _stationController = TextEditingController();
   List<dynamic> _stationData = [];
   bool _isLoading = false;
 
@@ -59,7 +61,7 @@ class _StationScreenState extends State<StationScreen> {
                   hintText: 'Enter station code or name',
                   hintStyle: TextStyle(color: Colors.grey[700]),
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(16.0),
+                  contentPadding: const EdgeInsets.all(16.0),
                   suffixIcon: IconButton(
                     icon: Icon(Icons.search, color: Colors.blue[900]),
                     onPressed: () {
@@ -69,7 +71,7 @@ class _StationScreenState extends State<StationScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               child: _isLoading
                   ? Expanded(
@@ -136,7 +138,7 @@ class _StationScreenState extends State<StationScreen> {
                             );
                           },
                         )
-                      : Center(
+                      : const Center(
                           child: Text(
                             'No station data found',
                             style: TextStyle(color: Colors.white),

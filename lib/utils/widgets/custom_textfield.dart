@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomTextfield extends StatelessWidget {
   final String hinttext;
   bool obscurePassword;
-  final String labeltext;
+  final String? labeltext;
   final IconButton? suffixicon;
   final Icon? prefixicon;
   final TextInputType? textInputType;
@@ -15,7 +15,7 @@ class CustomTextfield extends StatelessWidget {
     super.key,
     required this.hinttext,
     required this.obscurePassword,
-    required this.labeltext,
+    this.labeltext,
     this.suffixicon,
     this.prefixicon,
     this.textInputType,
@@ -71,13 +71,11 @@ class CustomTextfield extends StatelessWidget {
           prefixIcon: prefixicon,
           hintText: hinttext,
           labelText: labeltext,
-        
           contentPadding:
               const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         ),
         obscureText: obscurePassword,
         maxLines: 1,
-      
       ),
     );
   }

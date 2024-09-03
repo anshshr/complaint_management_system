@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class ComplaintHistoryPage extends StatelessWidget {
+  const ComplaintHistoryPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -9,11 +11,11 @@ class ComplaintHistoryPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue,
-          title: Text(
+          title: const Text(
             'Complaint History',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
-          bottom: TabBar(
+          bottom: const TabBar(
             labelColor: Colors.white,
             unselectedLabelColor: Colors.black,
             labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -50,6 +52,8 @@ class SolvedComplaintsTab extends StatelessWidget {
     },
   ];
 
+   SolvedComplaintsTab({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -65,7 +69,7 @@ class SolvedComplaintsTab extends StatelessWidget {
             child: ListTile(
               title: Text(
                 solvedComplaints[index]['title']!,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               subtitle: Text(solvedComplaints[index]['description']!),
               trailing: Text(solvedComplaints[index]['date']!),
@@ -105,6 +109,8 @@ class PendingComplaintsTab extends StatelessWidget {
     },
   ];
 
+   PendingComplaintsTab({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,9 +149,9 @@ class PendingComplaintsTab extends StatelessWidget {
                     Text(
                       timelineData[index]['title'],
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 6),
+                    const SizedBox(height: 6),
                     Text(timelineData[index]['subtitle']),
                   ],
                 ),

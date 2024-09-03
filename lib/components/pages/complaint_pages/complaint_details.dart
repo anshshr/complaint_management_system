@@ -17,11 +17,11 @@ class _ComplaintDetailsState extends State<ComplaintDetails> {
   final gemini = Gemini.instance;
   String? solution;
   bool isloaded = false;
-  Future<void> GetImage(File file, String problem_desc) async {
+  Future<void> GetImage(File file, String problemDesc) async {
     gemini.textAndImage(
         text:
             "Analyze the provided photo to determine if there is any visible garbage or litter at the station. If a problem description is provided, use it to refine your analysis. Based on the identified issues, indicate which department should be notified to address the cleaning. Please provide a detailed response indicating the presence, location of any garbage or litter, and the appropriate department for reporting." +
-                problem_desc,
+                problemDesc,
 
         /// text
         images: [file.readAsBytesSync()]
@@ -47,7 +47,7 @@ class _ComplaintDetailsState extends State<ComplaintDetails> {
     return Scaffold(
       body: Container(
         padding:
-            EdgeInsets.symmetric(horizontal: 15).copyWith(top: 40, bottom: 20),
+            const EdgeInsets.symmetric(horizontal: 15).copyWith(top: 40, bottom: 20),
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(

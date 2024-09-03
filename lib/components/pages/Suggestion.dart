@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SuggestionPage extends StatelessWidget {
-  const SuggestionPage({Key? key}) : super(key: key);
+  const SuggestionPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +20,9 @@ class SuggestionPage extends StatelessWidget {
                   color: Colors.grey.shade400,
                 ),
               ),
-              child: TextField(
+              child: const TextField(
                 maxLines: null,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'Enter your suggestion here...',
                   border: InputBorder.none,
                 ),
@@ -39,9 +39,9 @@ class SuggestionPage extends StatelessWidget {
                     color: Colors.grey.shade400,
                   ),
                 ),
-                child: TextField(
+                child: const TextField(
                   maxLines: null,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Enter a detailed description...',
                     border: InputBorder.none,
                   ),
@@ -58,8 +58,8 @@ class SuggestionPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       IconButton(
                         icon: Icon(Icons.format_bold),
                         onPressed: null,
