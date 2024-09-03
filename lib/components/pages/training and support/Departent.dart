@@ -54,6 +54,7 @@ class Department extends StatelessWidget {
     'assets/images/security.webp',
     'assets/images/housekeeping.png',
     'assets/images/food.webp',
+    'assets/images/women.png',
   ];
 
   final List<String> departments = [
@@ -64,6 +65,7 @@ class Department extends StatelessWidget {
     'Security Department',
     'Housekeeping Department',
     'Food Department',
+    'Women Safety Department',
   ];
 
   @override

@@ -21,6 +21,7 @@ class StationComplaint extends StatefulWidget {
 
 class _StationComplaintState extends State<StationComplaint> {
   TextEditingController stationname = TextEditingController();
+  TextEditingController platformnumber = TextEditingController();
   TextEditingController problem = TextEditingController();
   TextEditingController datetime = TextEditingController();
   File? image;
@@ -191,6 +192,14 @@ class _StationComplaintState extends State<StationComplaint> {
             height: 15,
           ),
           CustomTextfield(
+              hinttext: 'Enter the Platform number',
+              obscurePassword: false,
+              labeltext: 'Enter the Platform number',
+              controller: platformnumber),
+          const SizedBox(
+            height: 15,
+          ),
+          CustomTextfield(
               hinttext: 'Enter the date',
               obscurePassword: false,
               labeltext: 'Enter the date  ',
@@ -257,9 +266,9 @@ class _StationComplaintState extends State<StationComplaint> {
                     problem.text != null) {
                   String depart_name = media_data.length != 0
                       ? await GetImage(image!,
-                          "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department. Provide only one department name exactly as listed.")
+                          "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department, Women Safety Department. Provide only one department name exactly as listed.")
                       : await get_repsonse(
-                          "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department. Provide only one department name exactly as listed.");
+                          "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department, Women Safety Department. Provide only one department name exactly as listed.");
                   print(depart_name.replaceAll("*", ""));
                   await station_complaint(
                       stationname.text,
@@ -268,9 +277,19 @@ class _StationComplaintState extends State<StationComplaint> {
                       depart_name.replaceAll("*", ""),
                       media_path);
                   //notifying the user
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
                       content: Text(
-                          'your complaint has been registered to the ${depart_name.replaceAll("*", "")} department')));
+                        'Your complaint has been registered to the ${depart_name.replaceAll("*", "")}',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      backgroundColor: Colors.blue[400],
+                    ),
+                  );
+
                   //clearing the fields
                   setState(() {
                     media_data = [];

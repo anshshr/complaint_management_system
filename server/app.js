@@ -10,7 +10,7 @@ app.get('/', function(req,res){
     res.send('hello world');
 })
 
-mongoose.connect("mongodb://127.0.0.1:27017/Rail_Madad").then(()=>{
+mongoose.connect("mongodb+srv://shubhambera100:shubhambera100@railmadad.t2amj.mongodb.net/?retryWrites=true&w=majority&appName=railMadad").then(()=>{
     console.log('connection created');
 }).catch((e)=>{
     console.log('databse connection error');
@@ -23,4 +23,3 @@ app.use(train_complaint_router);
 app.listen(3000,()=>{
     console.log("port is connected to " + 3000);
 })
-

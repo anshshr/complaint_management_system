@@ -169,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.compass_calibration),
+                icon: Icon(Icons.file_copy_sharp),
                 label: 'Complaint',
               ),
               BottomNavigationBarItem(

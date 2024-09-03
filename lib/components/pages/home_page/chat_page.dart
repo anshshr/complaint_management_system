@@ -29,6 +29,13 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Rail Chat Bot',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+        ),
+        backgroundColor: Colors.blue[400],
+      ),
       body: Container(
         padding: EdgeInsets.all(15).copyWith(top: 40),
         height: double.infinity,
@@ -38,11 +45,11 @@ class _ChatPageState extends State<ChatPage> {
           startAngle: 20,
           endAngle: 30,
           colors: [
-            Colors.green[100]!,
-            Colors.green[200]!,
-            Colors.green[100]!,
-            Colors.green[200]!,
-            Colors.green[100]!,
+            Colors.blue[100]!,
+            Colors.blue[200]!,
+            Colors.blue[100]!,
+            Colors.blue[200]!,
+            Colors.blue[100]!,
           ],
         )),
         child: Stack(

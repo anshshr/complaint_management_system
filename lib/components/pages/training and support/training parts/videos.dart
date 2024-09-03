@@ -24,7 +24,7 @@ class _VideosState extends State<Videos> {
 
     try {
       final response = await gemini.text(
-        "You are responsible for sharing educational YouTube videos related to the ${widget.deptname} department. Provide a list of YouTube video URLs that are relevant to this department and would help in understanding its roles and responsibilities.",
+        "You are responsible for sharing educational YouTube videos related to the ${widget.deptname} department. Provide a list of Vaalid YouTube video URLs that are relevant to this Railway Sub department and would help in understanding its roles and responsibilities.",
       );
 
       if (response?.output != null) {
@@ -116,7 +116,7 @@ class _VideosState extends State<Videos> {
                       ),
                     ),
                   )
-                : videoList != null && videoList!.isNotEmpty
+                : videoList != null
                     ? ListView.builder(
                         itemCount: videoList!.length,
                         itemBuilder: (context, index) {
