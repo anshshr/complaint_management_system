@@ -24,7 +24,7 @@ Future register_train_compalint(
     };
 
     var response = await http.post(
-      Uri.parse('http://192.168.229.187:3000/api/train_complaint'),
+      Uri.parse('https://complaint-management-system-jgni.onrender.com/api/train_complaint'),
       body: jsonEncode(train_complaint),
       headers: {'Content-Type': 'application/json'},
     );
@@ -44,7 +44,7 @@ Future<List<Map<String, dynamic>>> get_train_complaints(
     String dept_name) async {
   try {
     var response = await http.get(Uri.parse(
-        'http://192.168.229.187:3000/api/get_train_complaint_by_dept/$dept_name'));
+        'https://complaint-management-system-jgni.onrender.com/api/get_train_complaint_by_dept/$dept_name'));
 
     if (response.statusCode == 200) {
       print('succesfully fetched the complaints');
