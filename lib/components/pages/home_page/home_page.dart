@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io' as io;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/complaint.dart';
@@ -10,6 +11,7 @@ import 'package:complaint_management_system/provider/language_provider.dart';
 import 'package:complaint_management_system/utils/widgets/custom_drawer.dart';
 import 'package:complaint_management_system/utils/widgets/language_dailog.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -30,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
   final ValueNotifier<int> _currentPage = ValueNotifier<int>(0);
   final QuickActions quickActions = const QuickActions();
+  bool _showLottieAnimation = true;
 
   final List<String> _pageTitles = [
     'Home Page',
@@ -41,6 +44,11 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     initializeQuickActions();
+    Timer(const Duration(seconds: 8), () {
+      setState(() {
+        _showLottieAnimation = false;
+      });
+    });
   }
 
   void initializeQuickActions() {
@@ -183,19 +191,40 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: (index) {
-          _currentPage.value = index;
-        },
-        children: [
-          HomePageContent(imagesLocation: imagesLocation),
-          const Complaint(),
-          FeedbackPage(
-            username: widget.username,
-          ),
-        ],
-      ),
+      body: _showLottieAnimation == true
+          ? Center(
+              child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.network(
+                    'https://lottie.host/7ce98aa1-3844-4d4b-bb43-b3b70e4d3e03/0oLOTe3LXC.json',
+                    height: 300,
+                    width: 300),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Let's start your journey...",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17.5,
+                      color: Colors.black87),
+                )
+              ],
+            ))
+          : PageView(
+              controller: _pageController,
+              onPageChanged: (index) {
+                _currentPage.value = index;
+              },
+              children: [
+                HomePageContent(imagesLocation: imagesLocation),
+                const Complaint(),
+                FeedbackPage(
+                  username: widget.username,
+                ),
+              ],
+            ),
     );
   }
 
