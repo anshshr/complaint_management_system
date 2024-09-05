@@ -1,9 +1,9 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 
-Future station_complaint(String Stationname,int platform_no, String date, String problem_desc,
-    String department, List<String> media) async {
+// Function to register a station complaint
+Future<void> station_complaint(String Stationname, int platform_no, String date,
+    String problem_desc, String department, List<String> media) async {
   try {
     var station_complaint = {
       'Stationname': Stationname,
@@ -15,21 +15,24 @@ Future station_complaint(String Stationname,int platform_no, String date, String
     };
 
     var response = await http.post(
-      Uri.parse('https://complaint-management-system-jgni.onrender.com/api/station_complaint'),
+      Uri.parse(
+          'https://complaint-management-system-jgni.onrender.com/api/station_complaint'),
       body: jsonEncode(station_complaint),
       headers: {'Content-Type': 'application/json'},
     );
 
     if (response.statusCode == 200) {
-      print('succesfully registered the station complaint');
+      print('Successfully registered the station complaint');
       print(response.body);
+    } else {
+      print('Failed to register the station complaint: ${response.body}');
     }
   } catch (e) {
-    print(e.toString());
+    print('Error: $e');
   }
 }
 
-//get all the station problems
+// Function to fetch station complaints by department name
 Future<List<Map<String, dynamic>>> fetch_station_complaints(
     String dept_name) async {
   try {
@@ -37,19 +40,20 @@ Future<List<Map<String, dynamic>>> fetch_station_complaints(
         'https://complaint-management-system-jgni.onrender.com/api/get_station_complaint/$dept_name'));
 
     if (response.statusCode == 200) {
-      print('succesfully fetched the complaints');
+      print('Successfully fetched the station complaints');
       var json_response = json.decode(response.body);
       print(json_response);
       return json_response.cast<Map<String, dynamic>>();
     } else {
+      print('Failed to fetch complaints: ${response.body}');
       return [
-        {'msg': 'no data'}
+        {'msg': 'No data available'}
       ];
     }
   } catch (e) {
-    print(e.toString());
+    print('Error: $e');
     return [
-      {'msg': 'error occured'}
+      {'msg': 'Error occurred'}
     ];
   }
 }

@@ -301,7 +301,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
                             "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department, Women Safety Department. Provide only one department name exactly as listed.");
                     print(depart_name.replaceAll("*", ""));
                     //save the data
-                    await register_train_compalint(
+                    await register_train_complaint(
                         desc.text,
                         coachno.text,
                         int.parse(berthno.text),

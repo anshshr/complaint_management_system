@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:lottie/lottie.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class Videos extends StatefulWidget {
   final String deptname;
@@ -24,7 +24,7 @@ class _VideosState extends State<Videos> {
 
     try {
       final response = await gemini.text(
-        "You are responsible for sharing educational YouTube videos related to the ${widget.deptname} department. Provide a list of Vaalid YouTube video URLs that are relevant to this Railway Sub department and would help in understanding its roles and responsibilities.",
+        "You are responsible for sharing educational YouTube videos related to the ${widget.deptname} department. Provide a list of valid YouTube video URLs that are relevant to this Railway Sub department and would help in understanding its roles and responsibilities.",
       );
 
       if (response?.output != null) {
@@ -81,14 +81,6 @@ class _VideosState extends State<Videos> {
     getVideos(widget.deptname);
   }
 
-  Future<void> _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,40 +113,50 @@ class _VideosState extends State<Videos> {
                         itemCount: videoList!.length,
                         itemBuilder: (context, index) {
                           final video = videoList![index];
+                          final videoId =
+                              YoutubePlayer.convertUrlToId(video['link']!);
                           return Card(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
                             elevation: 5,
                             shadowColor: Colors.blue[200],
-                            child: InkWell(
-                              onTap: () {
-                                _launchURL(video['link']!);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(15),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '${index + 1}: ${video['title']}',
-                                      style: TextStyle(
-                                        color: Colors.blue[900],
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    video['title'] ?? '',
+                                    style: TextStyle(
+                                      color: Colors.blue[900],
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600,
                                     ),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      video['link'] ?? '',
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.black87,
-                                        height: 1.5,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  if (videoId != null)
+                                    YoutubePlayer(
+                                      controller: YoutubePlayerController(
+                                        initialVideoId: videoId,
+                                        flags: const YoutubePlayerFlags(
+                                          autoPlay: false,
+                                          mute: false,
+                                        ),
                                       ),
+                                      showVideoProgressIndicator: true,
+                                      progressIndicatorColor: Colors.blueAccent,
                                     ),
-                                  ],
-                                ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    video['link'] ?? '',
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black87,
+                                      height: 1.5,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           );

@@ -66,6 +66,7 @@ dependencies:
   google_generative_ai: ^0.4.5
   quick_actions: ^1.0.7
   fl_chart: ^0.69.0
+  youtube_player_flutter: ^8.1.2
  
 flutter_launcher_icons:
   android: true
