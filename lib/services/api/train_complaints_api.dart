@@ -15,7 +15,7 @@ Future register_train_compalint(String problem_desc, String Trainname,
     };
 
     var response = await http.post(
-      Uri.parse('http://192.168.15.229:3000/api/train_complaint'),
+      Uri.parse('192.168.15.229:3000/api/train_complaint'),
       body: jsonEncode(train_complaint),
       headers: {'Content-Type': 'application/json'},
     );

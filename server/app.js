@@ -10,7 +10,7 @@ app.get('/', function(req,res){
     res.send('hello world');
 })
 
-mongoose.connect("mongodb+srv://shubhambera100:shubhambera100@railmadad.t2amj.mongodb.net/?retryWrites=true&w=majority&appName=railMadad").then(()=>{
+mongoose.connect("mongodb+srv://anshshriofficial:MafbZcoXh3WuhtS8@railmadad.t2amj.mongodb.net/?retryWrites=true&w=majority&appName=railMadad").then(()=>{
     console.log('connection created');
 }).catch((e)=>{
     console.log('databse connection error');
