@@ -2,7 +2,8 @@ import 'package:complaint_management_system/components/pages/training%20and%20su
 import 'package:flutter/material.dart';
 import 'package:complaint_management_system/services/api/station_complaints_api.dart';
 import 'package:complaint_management_system/services/api/train_complaints_api.dart';
-import 'package:fl_chart/fl_chart.dart'; // Import the fl_chart package for PieChart
+import 'package:fl_chart/fl_chart.dart';
+import 'package:lottie/lottie.dart'; // Import the fl_chart package for PieChart
 
 class DeptProblems extends StatefulWidget {
   final String deptname;
@@ -17,6 +18,7 @@ class _DeptProblemsState extends State<DeptProblems> {
   List<Map<String, dynamic>> trainData = [];
   List<Map<String, dynamic>> stationData = [];
   bool showComplaints = true;
+  bool isloaded = false;
 
   @override
   void initState() {
@@ -40,6 +42,7 @@ class _DeptProblemsState extends State<DeptProblems> {
 
     setState(() {
       stationData = apiData;
+      isloaded = true;
     });
   }
 
@@ -305,16 +308,37 @@ class _DeptProblemsState extends State<DeptProblems> {
           ),
         ],
       ),
-      body: showComplaints
-          ? (trainData.isNotEmpty || stationData.isNotEmpty
-              ? complaintsList()
-              : const Center(
-                  child: Text(
-                    'No complaints available',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ))
-          : buildPieChart(), // Display the pie chart when the toggle is activated
+      body: isloaded == true
+          ? showComplaints
+              ? (trainData.isNotEmpty || stationData.isNotEmpty
+                  ? complaintsList()
+                  : const Center(
+                      child: Text(
+                        'No complaints available',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ))
+              : buildPieChart() // Display the pie chart when the toggle is activated
+          : Center(
+              child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.network(
+                    'https://lottie.host/22d029c0-b679-4c06-8dd9-13759805b7dc/v7pAJygsg6.json',
+                    height: 300,
+                    width: 300),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Looking for Comlplaints...',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17.5,
+                      color: Colors.black87),
+                )
+              ],
+            )),
     );
   }
 }

@@ -7,6 +7,7 @@ import 'package:complaint_management_system/utils/widgets/custom_dialogbox.dart'
 import 'package:complaint_management_system/utils/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 
 class TrainComplaint extends StatefulWidget {
   TrainComplaint({super.key});
@@ -263,6 +264,36 @@ class _TrainComplaintState extends State<TrainComplaint> {
                       problem.text != '' &&
                       desc.text != '' &&
                       prno.text != '') {
+                    // Display animation
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Lottie.network(
+                                  'https://lottie.host/d2a9cfb9-8191-46f2-bc91-c3e488327d7b/4EvUuhLA0L.json',
+                                  width: double.infinity,
+                                  height: 400),
+                              SizedBox(height: 10),
+                              Text(
+                                'Registering complaint...',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+
+                    await Future.delayed(Duration(seconds: 15));
+
+                    Navigator.of(context).pop(); // close the dialog
                     String depart_name = media_data.length != 0
                         ? await GetImage(image!,
                             "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department, Women Safety Department. Provide only one department name exactly as listed.")
