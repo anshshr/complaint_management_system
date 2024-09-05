@@ -5,9 +5,11 @@ const train_complaint_router = express.Router();
 //post a complaint
 train_complaint_router.post('/api/train_complaint' , async function(req,res){
     try {
-        const {Trainname,pnrno,date,problem_desc,department,media} = req.body;
+        const {Trainname,berth_no,coach_no,pnrno,date,problem_desc,department,media} = req.body;
          const new_triain_complaint = new train_complaint({
             Trainname,
+            berth_no,
+            coach_no,
             pnrno,
             date,
             problem_desc,

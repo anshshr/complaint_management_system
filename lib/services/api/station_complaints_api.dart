@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-Future station_complaint(String Stationname, String date, String problem_desc,
+Future station_complaint(String Stationname,int platform_no, String date, String problem_desc,
     String department, List<String> media) async {
   try {
     var station_complaint = {
       'Stationname': Stationname,
+      'platform_no': platform_no,
       'date': date,
       'problem_desc': problem_desc,
       'department': department,
@@ -14,7 +15,7 @@ Future station_complaint(String Stationname, String date, String problem_desc,
     };
 
     var response = await http.post(
-      Uri.parse('http://192.168.15.229:3000/api/station_complaint'),
+      Uri.parse('http://192.168.229.187:3000/api/station_complaint'),
       body: jsonEncode(station_complaint),
       headers: {'Content-Type': 'application/json'},
     );
@@ -33,7 +34,7 @@ Future<List<Map<String, dynamic>>> fetch_station_complaints(
     String dept_name) async {
   try {
     var response = await http.get(Uri.parse(
-        'http://192.168.15.229:3000/api/get_station_complaint/$dept_name'));
+        'http://192.168.229.187:3000/api/get_station_complaint/$dept_name'));
 
     if (response.statusCode == 200) {
       print('succesfully fetched the complaints');

@@ -6,9 +6,10 @@ const station_complaint_router = express.Router();
 //post a complaint of the station
 station_complaint_router.post('/api/station_complaint', async function(req,res){
     try {
-        const {Stationname,date,problem_desc,department,media} = req.body;
+        const {Stationname,platform_no,date,problem_desc,department,media} = req.body;
         const new_station_complaint = new station_complaint({
             Stationname,
+            platform_no,
              date,
              problem_desc,
             department,

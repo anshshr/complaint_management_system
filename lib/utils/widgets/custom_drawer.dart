@@ -49,27 +49,27 @@ class CustomDrawer extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          // ListTile(
-          //   contentPadding: const EdgeInsets.only(left: 40, top: 10),
-          //   leading: const Icon(
-          //     Icons.home,
-          //     color: Colors.black,
-          //     size: 26,
-          //   ),
-          //   title: const Text(
-          //     'H O M E ',
-          //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-          //   ),
-          //   onTap: () => Navigator.pushAndRemoveUntil(
-          //     context,
-          //     MaterialPageRoute(
-          //       builder: (context) => HomePage(
-          //         username: username,
-          //       ),
-          //     ),
-          //     (route) => false,
-          //   ),
-          // ),
+          ListTile(
+            contentPadding: const EdgeInsets.only(left: 40, top: 10),
+            leading: const Icon(
+              Icons.home,
+              color: Colors.black,
+              size: 26,
+            ),
+            title: const Text(
+              'H O M E',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomePage(
+                            username: username,
+                            changeLanguage: (String language) => null,
+                          )));
+            },
+          ),
           ListTile(
             contentPadding: const EdgeInsets.only(left: 40, top: 10),
             leading: const Icon(
