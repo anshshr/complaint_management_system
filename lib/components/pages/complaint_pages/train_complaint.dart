@@ -170,7 +170,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
                 hinttext: 'Enter your Berth No',
                 obscurePassword: false,
                 labeltext: 'Berth no.',
-                textInputType: TextInputType.text,
+                textInputType: TextInputType.number,
                 controller: berthno),
             const SizedBox(
               height: 15,
@@ -270,13 +270,15 @@ class _TrainComplaintState extends State<TrainComplaint> {
                             "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department, Women Safety Department. Provide only one department name exactly as listed.");
                     print(depart_name.replaceAll("*", ""));
                     //save the data
-                    await register_train_compalint(
+                    await register_train_complaint(
                         desc.text,
+                        coachno.text,
+                        int.parse(berthno.text),
                         trainno.text,
                         int.parse(prno.text),
                         datetime.text,
                         media_path,
-                        depart_name.replaceAll("*", ""));
+                        depart_name.replaceAll("*", "").trim());
                     //notifying the user
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -285,7 +287,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
-                              fontWeight: FontWeight.w700), // White text color
+                              fontWeight: FontWeight.w700),
                         ),
                         backgroundColor: Colors.blue[400],
                       ),
@@ -300,6 +302,8 @@ class _TrainComplaintState extends State<TrainComplaint> {
                       prno.clear();
                       trainno.clear();
                       datetime.clear();
+                      berthno.clear();
+                      coachno.clear();
                     });
                   } else {
                     customDialog(

@@ -5,6 +5,10 @@ const station_complain = new mongoose.Schema({
     required: true,
     type: String
   },
+  platform_no :{
+    required : true,
+    type :Number
+  },
   date: {
     required: true,
     type: String,

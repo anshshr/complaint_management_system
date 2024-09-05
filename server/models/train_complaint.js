@@ -5,6 +5,14 @@ const train_complaint = new mongoose.Schema({
     required: true,
     type: String  
   },
+  berth_no: {
+    required: true,
+    type: Number  
+  },
+  coach_no: {
+    required: true,
+    type: String  
+  },
   pnrno: {
     required: true,
     type: Number  

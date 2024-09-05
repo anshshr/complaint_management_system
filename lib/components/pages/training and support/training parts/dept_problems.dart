@@ -1,4 +1,3 @@
-import 'package:complaint_management_system/components/pages/home_page/home_page.dart';
 import 'package:complaint_management_system/components/pages/training%20and%20support/training%20parts/department_problem_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:complaint_management_system/services/api/station_complaints_api.dart';
@@ -82,18 +81,33 @@ class _DeptProblemsState extends State<DeptProblems> {
             ),
             const SizedBox(height: 8),
             Text(
+              'Berth No : ${complaint['berth_no']?.toString() ?? 'N/A'}',
+              style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Coach No : ${complaint['coach_no']?.toString() ?? 'N/A'}',
+              style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Platform No : ${complaint['platform_no']?.toString() ?? 'N/A'}',
+              style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 8),
+            Text(
               complaint['problem_desc'] ?? 'No description available',
               style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 8),
-            if (complaint['imageUrl'] != null &&
-                complaint['imageUrl'].isNotEmpty)
-              Image.network(
-                complaint['imageUrl'],
-                height: 200,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+            // if (complaint['imageUrl'] != null &&
+            //     complaint['imageUrl'].isNotEmpty)
+            //   Image.file(
+            //     complaint['imageUrl'][0],
+            //     height: 200,
+            //     width: double.infinity,
+            //     fit: BoxFit.cover,
+            //   ),
           ],
         ),
       ),

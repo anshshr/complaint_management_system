@@ -36,34 +36,6 @@ class _StationComplaintState extends State<StationComplaint> {
   late AudioPlayer audioPlayer;
   late AudioRecorder audioRecorder;
   bool isRecording = false;
-  // File? audioFile;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   audioPlayer = AudioPlayer();
-  //   audioRecorder = AudioRecorder();
-  // }
-
-  // Future<void> startRecording() async {
-  //   if (await audioRecorder.hasPermission()) {
-  //     await audioRecorder.start(path: './audiorecoord', RecordConfig());
-  //     setState(() {
-  //       isRecording = true;
-  //     });
-  //   }
-  // }
-
-  // Future<void> stopRecording() async {
-  //   final path = await audioRecorder.stop();
-  //   if (path != null) {
-  //     setState(() {
-  //       audioFile = File(path);
-  //       media_data.add(audioFile);
-  //       isRecording = false;
-  //     });
-  //   }
-  // }
 
   Future<void> show_media_options(BuildContext context) async {
     return showModalBottomSheet(
@@ -195,6 +167,7 @@ class _StationComplaintState extends State<StationComplaint> {
               hinttext: 'Enter the Platform number',
               obscurePassword: false,
               labeltext: 'Enter the Platform number',
+              textInputType: TextInputType.number,
               controller: platformnumber),
           const SizedBox(
             height: 15,
@@ -263,7 +236,9 @@ class _StationComplaintState extends State<StationComplaint> {
                 if (stationname.text != '' &&
                     stationname.text != null &&
                     problem.text != "" &&
-                    problem.text != null) {
+                    problem.text != null &&
+                    platformnumber.text != "" &&
+                    platformnumber.text != null) {
                   String depart_name = media_data.length != 0
                       ? await GetImage(image!,
                           "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department, Women Safety Department. Provide only one department name exactly as listed.")
@@ -272,6 +247,7 @@ class _StationComplaintState extends State<StationComplaint> {
                   print(depart_name.replaceAll("*", ""));
                   await station_complaint(
                       stationname.text,
+                      int.parse(platformnumber.text),
                       datetime.text,
                       problem.text,
                       depart_name.replaceAll("*", ""),
