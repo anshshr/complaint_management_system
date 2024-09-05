@@ -17,6 +17,8 @@ class TrainComplaint extends StatefulWidget {
 
 class _TrainComplaintState extends State<TrainComplaint> {
   TextEditingController trainno = TextEditingController();
+  TextEditingController berthno = TextEditingController();
+  TextEditingController coachno = TextEditingController();
   TextEditingController prno = TextEditingController();
   TextEditingController problem = TextEditingController();
   TextEditingController desc = TextEditingController();
@@ -156,11 +158,29 @@ class _TrainComplaintState extends State<TrainComplaint> {
               height: 15,
             ),
             CustomTextfield(
-                hinttext: 'Enter you Train Name',
+                hinttext: 'Enter your Train Name',
                 obscurePassword: false,
                 labeltext: 'Train Name.',
                 textInputType: TextInputType.text,
                 controller: trainno),
+            const SizedBox(
+              height: 15,
+            ),
+            CustomTextfield(
+                hinttext: 'Enter your Berth No',
+                obscurePassword: false,
+                labeltext: 'Berth no.',
+                textInputType: TextInputType.text,
+                controller: berthno),
+            const SizedBox(
+              height: 15,
+            ),
+            CustomTextfield(
+                hinttext: 'Enter your Coach No',
+                obscurePassword: false,
+                labeltext: 'Coach No',
+                textInputType: TextInputType.text,
+                controller: coachno),
             const SizedBox(
               height: 15,
             ),
@@ -245,9 +265,9 @@ class _TrainComplaintState extends State<TrainComplaint> {
                       prno.text != '') {
                     String depart_name = media_data.length != 0
                         ? await GetImage(image!,
-                            "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department. Provide only one department name exactly as listed.")
+                            "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department, Women Safety Department. Provide only one department name exactly as listed.")
                         : await get_repsonse(
-                            "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department. Provide only one department name exactly as listed.");
+                            "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department, Women Safety Department. Provide only one department name exactly as listed.");
                     print(depart_name.replaceAll("*", ""));
                     //save the data
                     await register_train_compalint(
@@ -258,9 +278,19 @@ class _TrainComplaintState extends State<TrainComplaint> {
                         media_path,
                         depart_name.replaceAll("*", ""));
                     //notifying the user
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
                         content: Text(
-                            'your complaint has been registered to the ${depart_name.replaceAll("*", "")} department')));
+                          'Your complaint has been registered to the ${depart_name.replaceAll("*", "")}',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700), // White text color
+                        ),
+                        backgroundColor: Colors.blue[400],
+                      ),
+                    );
+
                     //clearing the fields
                     setState(() {
                       media_data = [];

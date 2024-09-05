@@ -19,7 +19,7 @@ class BotChatText extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 10.0),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.black,
+                    color: Colors.blue[600],
                     border: Border.all(color: Colors.black),
                     borderRadius: const BorderRadius.all(Radius.circular(20)),
                   ),

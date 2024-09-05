@@ -15,7 +15,7 @@ Future register_train_compalint(String problem_desc, String Trainname,
     };
 
     var response = await http.post(
-      Uri.parse('http://192.168.229.239:3000/api/train_complaint'),
+      Uri.parse('http://192.168.15.229:3000/api/train_complaint'),
       body: jsonEncode(train_complaint),
       headers: {'Content-Type': 'application/json'},
     );
@@ -35,7 +35,7 @@ Future<List<Map<String, dynamic>>> get_train_complaints(
     String dept_name) async {
   try {
     var response = await http.get(Uri.parse(
-        'http://192.168.229.239:3000/api/get_train_complaint_by_dept/$dept_name'));
+        'http://192.168.15.229:3000/api/get_train_complaint_by_dept/$dept_name'));
 
     if (response.statusCode == 200) {
       print('succesfully fetched the complaints');
