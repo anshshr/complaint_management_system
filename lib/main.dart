@@ -16,6 +16,7 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   SharedPreferences pref = await SharedPreferences.getInstance();
   String? languageCode = pref.getString('language') ?? 'en';
+  print(pref.getBool('login'));
 
   runApp(
     ChangeNotifierProvider(
