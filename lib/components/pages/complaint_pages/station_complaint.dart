@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:audioplayers/audioplayers.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/train_complaint.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/widgets/media_conatiner.dart';
 import 'package:complaint_management_system/services/api/gemini_services.dart';
@@ -11,7 +9,6 @@ import 'package:complaint_management_system/utils/widgets/custom_textfield.dart'
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
-import 'package:record/record.dart';
 
 class StationComplaint extends StatefulWidget {
   const StationComplaint({super.key});
@@ -34,8 +31,6 @@ class _StationComplaintState extends State<StationComplaint> {
   List media_data = [];
   List<String> media_path = [];
 
-  late AudioPlayer audioPlayer;
-  late AudioRecorder audioRecorder;
   bool isRecording = false;
 
   Future<void> show_media_options(BuildContext context) async {

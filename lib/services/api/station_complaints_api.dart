@@ -57,3 +57,29 @@ Future<List<Map<String, dynamic>>> fetch_station_complaints(
     ];
   }
 }
+
+//get the list of complaints based on the complaint id
+
+Future<List<Map<String, dynamic>>> getstation_complaint_byid(String id) async {
+  try {
+    var response = await http.get(Uri.parse(
+        'https://complaint-management-system-jgni.onrender.com/api/st_complaint/$id'));
+    if (response.statusCode == 200) {
+      print('Successfully fetched the station complaints');
+      var json_response = json.decode(response.body);
+      print(json_response);
+      return json_response.cast<Map<String, dynamic>>();
+    } else {
+      print('Failed to fetch complaints: ${response.body}');
+      return [
+        {'msg': 'No data available'}
+      ];
+    }
+  } catch (e) {
+    print('error geting the details of the train');
+    print(e.toString());
+    return [
+      {'msg': 'Error occurred'}
+    ];
+  }
+}

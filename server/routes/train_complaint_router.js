@@ -69,5 +69,24 @@ train_complaint_router.get('/api/get_train_complaint_by_dept/:departname' , asyn
         })
     }
 })
+//get a compalint by id number
+train_complaint_router.get('/api/tr_complaint/:id',async function (req,res) {
+    try {
+        const complaint_by_id = await train_complaint.find({_id : req.params.id});
+    if(complaint_by_id.length == 1){
+        return res.status(200).json(complaint_by_id);
+    }
+    else{
+        return res.status(200).json({'msg' : 'No complaint found for this id no'});
+    }
+    } catch (error) {
+        res.status(500).json({
+            'error' : error.message,
+            'msg' : 'something error occured while fetching the train complaint by id number'
+        })
+    }
+});
+
+
 
 module.exports = train_complaint_router;

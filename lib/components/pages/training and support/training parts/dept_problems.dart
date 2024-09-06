@@ -99,6 +99,11 @@ class _DeptProblemsState extends State<DeptProblems> {
             ),
             const SizedBox(height: 8),
             Text(
+              'Complaint I.D. : ${complaint['_id'] ?? 'N/A'}',
+              style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 8),
+            Text(
               complaint['problem_desc'] ?? 'No description available',
               style: const TextStyle(fontSize: 16),
             ),

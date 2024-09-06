@@ -26,7 +26,23 @@ const station_complain = new mongoose.Schema({
   media: {
    type: [String],
    required: true
-  }
+  },
+  complaint_registerd :{
+    type : Boolean,
+    default : false
+  },
+  complaint_reviewed :{
+    type: Boolean,
+    default : false
+  },
+  action_taken :{
+    type : Boolean,
+    default : false
+  },
+  complaint_resolved:{
+    type : Boolean,
+    default : false
+  },
 });
 
 // Export the Mongoose model

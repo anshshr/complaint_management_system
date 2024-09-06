@@ -309,7 +309,8 @@ class _TrainComplaintState extends State<TrainComplaint> {
                         int.parse(prno.text),
                         datetime.text,
                         media_path,
-                        depart_name.replaceAll("*", "").trim());
+                        depart_name.replaceAll("*", "").trim(),
+                        );
                     //notifying the user
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

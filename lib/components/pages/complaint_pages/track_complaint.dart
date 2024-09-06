@@ -1,7 +1,10 @@
 import 'package:complaint_management_system/components/pages/complaint_pages/complaint_history_page.dart';
+import 'package:complaint_management_system/services/api/station_complaints_api.dart';
+import 'package:complaint_management_system/services/api/train_complaints_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:timeline_tile/timeline_tile.dart';
+import 'package:http/http.dart' as http;
 
 class TrackComplaint extends StatefulWidget {
   const TrackComplaint({super.key});
@@ -11,21 +14,18 @@ class TrackComplaint extends StatefulWidget {
 }
 
 class _TrackComplaintState extends State<TrackComplaint> {
-  final _formKey = GlobalKey<FormState>();
   final TextEditingController _controller = TextEditingController();
+  List<Map<String, dynamic>> complaint_data = [];
 
-  bool _isValid = false;
-
-  void _validateInput() {
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        _isValid = true;
-      });
-    } else {
-      setState(() {
-        _isValid = false;
-      });
+  Future get_complaints(String id) async {
+    List<Map<String, dynamic>> apiData = await getstation_complaint_byid(id);
+    if (apiData.isEmpty) {
+      apiData = await get_train_complaint_byid(id);
     }
+
+    setState(() {
+      complaint_data = apiData;
+    });
   }
 
   @override
@@ -33,70 +33,69 @@ class _TrackComplaintState extends State<TrackComplaint> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFormField(
-                controller: _controller,
-                decoration: const InputDecoration(
-                  labelText: 'Enter 10-digit Reference Number',
-                  border: OutlineInputBorder(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextFormField(
+              controller: _controller,
+              decoration: const InputDecoration(
+                labelText: 'Enter 10-digit Reference Number',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.text,
+              maxLength: 10,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a reference number';
+                } else if (value.length != 10) {
+                  return 'Reference number must be 10 digits';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: ()  async{
+                    // Track complaint logic goes here
+                   await get_complaints(_controller.text);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: const Text('Track Complaint'),
                 ),
-                keyboardType: TextInputType.number,
-                maxLength: 10,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a reference number';
-                  } else if (value.length != 10) {
-                    return 'Reference number must be 10 digits';
-                  }
-                  return null;
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ComplaintHistoryPage(),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: const Text('Complaint History'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: ListView.builder(
+                itemCount: 4, // Assuming 4 events in the complaint timeline
+                itemBuilder: (context, index) {
+                  return _buildTimelineTile(index);
                 },
               ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ElevatedButton(
-                    onPressed: _validateInput,
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.blue,
-                    ),
-                    child: const Text('Track Complaint'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ComplaintHistoryPage(),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.blue,
-                    ),
-                    child: const Text('Complaint History'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              if (_isValid)
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: 4, // Assuming 4 events in the complaint timeline
-                    itemBuilder: (context, index) {
-                      return _buildTimelineTile(index);
-                    },
-                  ),
-                ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
