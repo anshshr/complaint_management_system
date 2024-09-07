@@ -355,6 +355,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.5.1"
+  flutter_sound:
+    dependency: "direct main"
+    description:
+      name: flutter_sound
+      sha256: "719f6f511c5a1ce9b38031d1ba430f1ac5ca644a9bdcc757990349db9591b82e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.11.2"
+  flutter_sound_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_sound_platform_interface
+      sha256: f75db77bf9fec46c70b284d7628d545ef7ba4164177e53f9dd14c48d0f557615
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.11.2"
+  flutter_sound_web:
+    dependency: transitive
+    description:
+      name: flutter_sound_web
+      sha256: "45811ad00142ff33d7e3c1ff47eb8c3fb1a3d363f9a3a60ccd7d240ee1139d14"
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.11.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -653,6 +677,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
+  logger:
+    dependency: transitive
+    description:
+      name: logger
+      sha256: "697d067c60c20999686a0add96cf6aba723b3aa1f83ecf806a8097231529ec32"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.0"
   lottie:
     dependency: "direct main"
     description:
@@ -885,6 +917,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
+  recase:
+    dependency: transitive
+    description:
+      name: recase
+      sha256: e4eb4ec2dcdee52dcf99cb4ceabaffc631d7424ee55e56f280bc039737f89213
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   riverpod:
     dependency: transitive
     description:
@@ -1050,6 +1090,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  synchronized:
+    dependency: transitive
+    description:
+      name: synchronized
+      sha256: a824e842b8a054f91a728b783c177c1e4731f6b124f9192468457a8913371255
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.0"
   term_glyph:
     dependency: transitive
     description:

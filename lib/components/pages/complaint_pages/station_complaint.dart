@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:complaint_management_system/components/pages/complaint_pages/train_complaint.dart';
+import 'package:complaint_management_system/components/pages/complaint_pages/widgets/audio_recoder.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/widgets/media_conatiner.dart';
 import 'package:complaint_management_system/services/api/gemini_services.dart';
 import 'package:complaint_management_system/services/api/get_image_descripton.dart';
@@ -127,7 +128,10 @@ class _StationComplaintState extends State<StationComplaint> {
               const SizedBox(height: 15),
               InkWell(
                   onTap: () async {
-                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RecorderScreen()));
                   },
                   child: Text('RECORD AUDIO', style: style)),
               const SizedBox(
