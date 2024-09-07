@@ -8,6 +8,8 @@ import 'package:complaint_management_system/utils/widgets/custom_textfield.dart'
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class TrainComplaint extends StatefulWidget {
   TrainComplaint({super.key});
@@ -141,6 +143,30 @@ class _TrainComplaintState extends State<TrainComplaint> {
 
   @override
   Widget build(BuildContext context) {
+    Future<String?> getUpcomingStation(String trainNumber) async {
+      final url = 'https://rappid.in/apis/train.php?train_no=$trainNumber';
+      try {
+        final response = await http.get(Uri.parse(url));
+        if (response.statusCode == 200) {
+          final data = jsonDecode(response.body);
+          if (data['success'] == true) {
+            List<dynamic> stations = data['data'];
+
+            // Find the next station where is_current_station is false
+            for (var station in stations) {
+              if (!station['is_current_station']) {
+                return station['station_name'];
+              }
+            }
+          }
+        }
+        return null;
+      } catch (e) {
+        print('Error fetching upcoming station: $e');
+        return null;
+      }
+    }
+
     return Container(
       padding: const EdgeInsets.all(15),
       height: double.infinity,
@@ -264,6 +290,10 @@ class _TrainComplaintState extends State<TrainComplaint> {
                       problem.text != '' &&
                       desc.text != '' &&
                       prno.text != '') {
+                    // Get the upcoming station based on the provided train number
+                    final upcomingStation =
+                        await getUpcomingStation(trainno.text);
+
                     // Display animation
                     showDialog(
                       context: context,
@@ -294,12 +324,15 @@ class _TrainComplaintState extends State<TrainComplaint> {
                     await Future.delayed(Duration(seconds: 15));
 
                     Navigator.of(context).pop(); // close the dialog
+
                     String depart_name = media_data.length != 0
                         ? await GetImage(image!,
                             "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department, Women Safety Department. Provide only one department name exactly as listed.")
                         : await get_repsonse(
                             "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department, Women Safety Department. Provide only one department name exactly as listed.");
+
                     print(depart_name.replaceAll("*", ""));
+
                     //save the data
                     await register_train_complaint(
                         desc.text,
@@ -310,11 +343,12 @@ class _TrainComplaintState extends State<TrainComplaint> {
                         datetime.text,
                         media_path,
                         depart_name.replaceAll("*", "").trim());
-                    //notifying the user
+
+                    //notifying the user with the upcoming station name
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                          'Your complaint has been registered to the ${depart_name.replaceAll("*", "")}',
+                          'Your complaint has been registered to ${upcomingStation ?? "unknown"} station and ${depart_name.replaceAll("*", "")}',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -340,7 +374,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
                     customDialog(
                         context, 'Please Enter all the necessary Details');
                   }
-                }),
+                })
               ],
             )
           ]),
