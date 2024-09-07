@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:complaint_management_system/components/pages/complaint_pages/widgets/media_conatiner.dart';
 import 'package:complaint_management_system/services/api/gemini_services.dart';
 import 'package:complaint_management_system/services/api/get_image_descripton.dart';
+import 'package:complaint_management_system/services/api/live_train_details.dart';
 import 'package:complaint_management_system/services/api/train_complaints_api.dart';
 import 'package:complaint_management_system/utils/widgets/custom_dialogbox.dart';
 import 'package:complaint_management_system/utils/widgets/custom_textfield.dart';
@@ -35,6 +36,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
   final picker = ImagePicker();
   List media_data = [];
   List<String> media_path = [];
+  bool complaint_register = false;
 
   Future<void> show_bottom_sheet(BuildContext context) async {
     return showModalBottomSheet(
@@ -143,30 +145,6 @@ class _TrainComplaintState extends State<TrainComplaint> {
 
   @override
   Widget build(BuildContext context) {
-    Future<String?> getUpcomingStation(String trainNumber) async {
-      final url = 'https://rappid.in/apis/train.php?train_no=$trainNumber';
-      try {
-        final response = await http.get(Uri.parse(url));
-        if (response.statusCode == 200) {
-          final data = jsonDecode(response.body);
-          if (data['success'] == true) {
-            List<dynamic> stations = data['data'];
-
-            // Find the next station where is_current_station is false
-            for (var station in stations) {
-              if (!station['is_current_station']) {
-                return station['station_name'];
-              }
-            }
-          }
-        }
-        return null;
-      } catch (e) {
-        print('Error fetching upcoming station: $e');
-        return null;
-      }
-    }
-
     return Container(
       padding: const EdgeInsets.all(15),
       height: double.infinity,
@@ -185,9 +163,9 @@ class _TrainComplaintState extends State<TrainComplaint> {
               height: 15,
             ),
             CustomTextfield(
-                hinttext: 'Enter your Train Name',
+                hinttext: 'Enter your Train no',
                 obscurePassword: false,
-                labeltext: 'Train Name.',
+                labeltext: 'Train no.',
                 textInputType: TextInputType.text,
                 controller: trainno),
             const SizedBox(
@@ -267,13 +245,21 @@ class _TrainComplaintState extends State<TrainComplaint> {
                       physics: const ClampingScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return MediaConatiner(mediaUrl: media_data[index]!);
+                        return MediaConatiner(
+                          mediaUrl: media_data[index]!,
+                          ontap: () {
+                            setState(() {
+                              media_data.removeAt(index);
+                              media_path.removeAt(index);
+                            });
+                          },
+                        );
                       },
                     ),
                   )
                 : SizedBox(),
             const SizedBox(
-              height: 15,
+              height: 5,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -290,10 +276,6 @@ class _TrainComplaintState extends State<TrainComplaint> {
                       problem.text != '' &&
                       desc.text != '' &&
                       prno.text != '') {
-                    // Get the upcoming station based on the provided train number
-                    final upcomingStation =
-                        await getUpcomingStation(trainno.text);
-
                     // Display animation
                     showDialog(
                       context: context,
@@ -306,7 +288,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
                               Lottie.network(
                                   'https://lottie.host/d2a9cfb9-8191-46f2-bc91-c3e488327d7b/4EvUuhLA0L.json',
                                   width: double.infinity,
-                                  height: 400),
+                                  height: 300),
                               SizedBox(height: 10),
                               Text(
                                 'Registering complaint...',
@@ -321,9 +303,9 @@ class _TrainComplaintState extends State<TrainComplaint> {
                       },
                     );
 
-                    await Future.delayed(Duration(seconds: 15));
-
-                    Navigator.of(context).pop(); // close the dialog
+                    // Get the upcoming station based on the provided train number
+                    final upcomingStation =
+                        await getUpcomingStation(trainno.text);
 
                     String depart_name = media_data.length != 0
                         ? await GetImage(image!,
@@ -343,6 +325,7 @@ class _TrainComplaintState extends State<TrainComplaint> {
                         datetime.text,
                         media_path,
                         depart_name.replaceAll("*", "").trim());
+                    Navigator.pop(context);
 
                     //notifying the user with the upcoming station name
                     ScaffoldMessenger.of(context).showSnackBar(

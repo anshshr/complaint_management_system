@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:complaint_management_system/components/app/home_splash_screen.dart';
 import 'package:complaint_management_system/components/pages/home_page/home_page.dart';
 import 'package:complaint_management_system/services/auth/auth.dart';
 import 'package:complaint_management_system/utils/widgets/custom_button.dart';
@@ -150,9 +151,8 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => HomePage(
+                                  builder: (context) => HomeSplashScreen(
                                     username: username.text,
-                                    changeLanguage: (String languageCode) {},
                                   ),
                                 ),
                               );

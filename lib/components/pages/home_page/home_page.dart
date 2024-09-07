@@ -191,40 +191,19 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-      body: _showLottieAnimation == true
-          ? Center(
-              child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Lottie.network(
-                    'https://lottie.host/7ce98aa1-3844-4d4b-bb43-b3b70e4d3e03/0oLOTe3LXC.json',
-                    height: 300,
-                    width: 300),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Let's start your journey...",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17.5,
-                      color: Colors.black87),
-                )
-              ],
-            ))
-          : PageView(
-              controller: _pageController,
-              onPageChanged: (index) {
-                _currentPage.value = index;
-              },
-              children: [
-                HomePageContent(imagesLocation: imagesLocation),
-                const Complaint(),
-                FeedbackPage(
-                  username: widget.username,
-                ),
-              ],
-            ),
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          _currentPage.value = index;
+        },
+        children: [
+          HomePageContent(imagesLocation: imagesLocation),
+          const Complaint(),
+          FeedbackPage(
+            username: widget.username,
+          ),
+        ],
+      ),
     );
   }
 

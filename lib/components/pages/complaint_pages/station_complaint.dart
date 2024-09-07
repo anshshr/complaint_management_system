@@ -214,7 +214,15 @@ class _StationComplaintState extends State<StationComplaint> {
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return MediaConatiner(mediaUrl: media_data[index]);
+                      return MediaConatiner(
+                        mediaUrl: media_data[index],
+                        ontap: () {
+                          setState(() {
+                            media_data.removeAt(index);
+                            media_path.removeAt(index);
+                          });
+                        },
+                      );
                     },
                   ),
                 )
@@ -262,9 +270,6 @@ class _StationComplaintState extends State<StationComplaint> {
                     },
                   );
 
-                  await Future.delayed(Duration(seconds: 15));
-
-                  Navigator.of(context).pop(); // close the dialog
                   String depart_name = media_data.length != 0
                       ? await GetImage(image!,
                           "This is the problem at the station: '${problem.text}'. Please identify the most suitable department for handling this issue from the following list: Engineering Department, Electrical Department, Traffic Department, Medical Department, Security Department, Housekeeping Department, Food Department, Women Safety Department. Provide only one department name exactly as listed.")
@@ -278,6 +283,8 @@ class _StationComplaintState extends State<StationComplaint> {
                       problem.text,
                       depart_name.replaceAll("*", ""),
                       media_path);
+                  Navigator.of(context).pop(); // close the dialog
+
                   //notifying the user
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
