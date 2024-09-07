@@ -60,8 +60,6 @@ dependencies:
   geocoding: ^3.0.0
   flutter_riverpod: ^2.5.1
   carousel_slider: ^5.0.0
-  record: ^5.1.2
-  audioplayers: ^6.1.0
   lottie: ^3.1.2
   google_generative_ai: ^0.4.5
   quick_actions: ^1.0.7
