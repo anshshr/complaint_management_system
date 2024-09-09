@@ -125,6 +125,7 @@ class _HomePageState extends State<HomePage> {
     ];
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: ValueListenableBuilder<int>(
           valueListenable: _currentPage,
@@ -168,6 +169,7 @@ class _HomePageState extends State<HomePage> {
         valueListenable: _currentPage,
         builder: (context, pageIndex, child) {
           return BottomNavigationBar(
+            backgroundColor: Colors.white,
             currentIndex: pageIndex,
             selectedItemColor: Colors.blue,
             unselectedItemColor: Colors.black87,

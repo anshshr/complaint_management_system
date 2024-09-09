@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:complaint_management_system/components/pages/complaint_pages/train_complaint.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/widgets/audio_recoder.dart';
+import 'package:complaint_management_system/components/pages/complaint_pages/widgets/image_text_recognizer.dart';
 import 'package:complaint_management_system/components/pages/complaint_pages/widgets/media_conatiner.dart';
 import 'package:complaint_management_system/services/api/gemini_services.dart';
 import 'package:complaint_management_system/services/api/get_image_descripton.dart';
@@ -45,20 +46,9 @@ class _StationComplaintState extends State<StationComplaint> {
           width: double.infinity,
           child: Column(
             children: [
-              const SizedBox(height: 15),
-              const Text('SELECT MEDIA',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.grey)),
               const SizedBox(
                 height: 15,
               ),
-              const Divider(
-                color: Colors.black87,
-                thickness: 1,
-              ),
-              const SizedBox(height: 15),
               InkWell(
                   onTap: () async {
                     final pickedFile =
@@ -135,8 +125,23 @@ class _StationComplaintState extends State<StationComplaint> {
                   },
                   child: Text('RECORD AUDIO', style: style)),
               const SizedBox(
-                height: 10,
+                height: 15,
               ),
+              const Divider(
+                color: Colors.black87,
+                thickness: 1,
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              InkWell(
+                  onTap: () async {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ImageTextRecognizer()));
+                  },
+                  child: Text('TEXT RECOGNITION', style: style)),
             ],
           ),
         );
