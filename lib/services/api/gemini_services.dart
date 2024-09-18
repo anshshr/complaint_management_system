@@ -14,7 +14,7 @@ Future<String> get_repsonse(String question) async {
     final response = await model.generateContent([Content.text(prompt)]);
     String responseText = response.text!;
     print(response.text);
-    return responseText;
+    return responseText.replaceAll('*', '');
   } catch (e) {
     print(e.toString());
     return '';

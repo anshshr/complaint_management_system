@@ -7,7 +7,7 @@ class BotChatText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 10, bottom: 15),
       child: Align(
         alignment: Alignment.centerRight,
         child: Row(

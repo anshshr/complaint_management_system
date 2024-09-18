@@ -33,7 +33,6 @@ class _StationComplaintState extends State<StationComplaint> {
   List media_data = [];
   List<String> media_path = [];
 
-  bool isRecording = false;
 
   Future<void> show_media_options(BuildContext context) async {
     return showModalBottomSheet(
