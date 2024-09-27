@@ -71,7 +71,7 @@ dependencies:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/icons/indianrail.png"
+  image_path: "assets/icons/shubhyatra.png"
   min_sdk_android: 23
  
 

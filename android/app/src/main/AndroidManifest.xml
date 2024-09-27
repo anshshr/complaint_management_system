@@ -16,7 +16,7 @@
 
     
     <application
-        android:label="Rail Madad"
+        android:label="Shubh Yatra"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
