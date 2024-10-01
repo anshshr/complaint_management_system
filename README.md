@@ -130,10 +130,3 @@ To get this project up and running, follow these steps:
 
 We welcome contributions! If you have ideas or improvements, feel free to fork the repo and submit a pull request.
 
-
-## 📝 **License**
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-Feel free to customize this README further with specific images and any additional details that represent your app's vision!
