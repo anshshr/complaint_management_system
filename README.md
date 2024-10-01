@@ -1,6 +1,6 @@
 # 🚉 **Shubh Yatra App** – Your Multilingual & Multimedia Railway Complaint management system 🛤️
    
-                                          ![WhatsApp Image 2024-09-14 at 13 01 39_94207d29](https://github.com/user-attachments/assets/7c9b950e-06f9-4b28-b8a8-f1f8b3eb308f)
+                                      ![WhatsApp Image 2024-09-14 at 13 01 39_4f575e76](https://github.com/user-attachments/assets/8a6f986e-d93c-406c-8356-d6680902c553)
 
 
 Welcome to the **Shubh Yatra App** repository! This innovative app is designed to enhance the railway travel experience by empowering passengers to report issues and access information easily. With its advanced features, Shubh Yatra serves as a comprehensive solution for addressing concerns and facilitating communication within the railway system.
@@ -15,7 +15,7 @@ Upload a photo of a problem area, such as garbage,litter or any other problem, a
    - Automatically notify the relevant department for prompt resolution.
 
 **Example:**  
-                        ![WhatsApp Image 2024-10-01 at 23 21 28_b2574390](https://github.com/user-attachments/assets/aafd42d9-77b7-4034-8364-ed893df152bb)
+                        ![WhatsApp Image 2024-10-01 at 23 21 28_fab9717a](https://github.com/user-attachments/assets/e470e82f-ab38-4fee-abd6-150950cd7c89)
 
 
 ### 2. 🏗️ **Smart Departmental Categorization**
