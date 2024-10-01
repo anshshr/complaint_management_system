@@ -25,7 +25,7 @@ After detecting an issue, the app will:
    - Provide **real-time updates** on the status of complaints to the users.
 
 
-                                     ![WhatsApp Image 2024-10-01 at 23 23 01_db678a9c](https://github.com/user-attachments/assets/1955aced-fbfb-418e-9b01-8f6b58fafbd1)
+     ![WhatsApp Image 2024-10-01 at 23 23 01_db678a9c](https://github.com/user-attachments/assets/1955aced-fbfb-418e-9b01-8f6b58fafbd1)
 
 
 ### 3. 🎓 **AI-Powered Information Hub**
@@ -39,7 +39,7 @@ The Shubh Yatra app acts as an informative assistant:
 The app responds with a breakdown of duties.
 
 
-                                                   ![WhatsApp Image 2024-10-01 at 23 24 06_cc831bff](https://github.com/user-attachments/assets/2b6e2209-331a-4684-bacb-6ca1dac883be)
+  ![WhatsApp Image 2024-10-01 at 23 24 06_cc831bff](https://github.com/user-attachments/assets/2b6e2209-331a-4684-bacb-6ca1dac883be)
 
 
 ### 4. 💬 **User-Friendly Conversational Interface**
@@ -57,7 +57,7 @@ Shubh Yatra is designed for inclusivity, featuring:
    - Support for **multiple languages**, allowing users to communicate in their **preferred language**.
    - **Natural language processing** for text and voice recognition in different languages, enhancing user engagement.
 
-                                      ![image](https://github.com/user-attachments/assets/dbe8b675-35c1-4653-86a5-c9633975ca55)
+![image](https://github.com/user-attachments/assets/dbe8b675-35c1-4653-86a5-c9633975ca55)
 
 
 ### 6. 🎤 **Audio Complaint Analysis**
@@ -67,7 +67,7 @@ For users who prefer speaking over typing, the app offers:
    - Quick processing of voice messages, allowing users to report issues on the go.
 
 
-                                       ![WhatsApp Image 2024-10-01 at 23 26 12_c7cdaab4](https://github.com/user-attachments/assets/1983e284-8d4c-46c0-9741-3104a681f32d)
+![WhatsApp Image 2024-10-01 at 23 26 12_c7cdaab4](https://github.com/user-attachments/assets/1983e284-8d4c-46c0-9741-3104a681f32d)
 
 
 ### 7. 🎥 **Video and Camera Features**
@@ -84,7 +84,7 @@ Users can track their complaints easily with:
 
 **Progress Tracker Example:**  
 
-               ![WhatsApp Image 2024-10-01 at 23 26 53_40df0d7b](https://github.com/user-attachments/assets/13610252-d367-42cc-b864-ec99fefc9279)
+ ![WhatsApp Image 2024-10-01 at 23 26 53_40df0d7b](https://github.com/user-attachments/assets/13610252-d367-42cc-b864-ec99fefc9279)
 
 
 ### 9. 🔒 **Secure and Scalable**
