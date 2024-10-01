@@ -1,4 +1,4 @@
-# 🚉 **Shubh Yatra App** – Your Multilingual & Multimedia Railway Complaint management system 🛤️
+# 🚉 **Shubh Yatra App** – Your Multilingual & Multimedia Railway Complaint Management System 🛤️
 
  ![WhatsApp Image 2024-09-14 at 13 01 39_4f575e76](https://github.com/user-attachments/assets/8a6f986e-d93c-406c-8356-d6680902c553)
 
