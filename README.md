@@ -1,6 +1,7 @@
-Shubh Yatra – Your Digital Railway Assistant 🛤️
+**Shubh Yatra** – Your Digital Railway Assistant for solving the complaints
 
-![Station Master AI](path-to-your-image.png)
+![WhatsApp Image 2024-09-14 at 13 01 39_c99dd63b](https://github.com/user-attachments/assets/f9bca419-9025-421b-898e-7910f7c47fb5)
+
 
 Welcome to the **Station Master AI Chatbot** repository! This unique project is designed to enhance the efficiency of railway station management by offering a user-friendly platform for reporting issues and understanding departmental roles, all powered by AI. Whether you're concerned about cleanliness or just curious about how the station operates, this bot has you covered!
 
