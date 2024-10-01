@@ -49,6 +49,8 @@ With natural language processing capabilities, the app ensures:
    - Interactive dialogue guiding users from **problem reporting to resolution tracking**.
 
 
+![WhatsApp Image 2024-10-01 at 23 23 57_e7dca56b](https://github.com/user-attachments/assets/e5976276-c441-4904-ac5e-b2e7723a48e2) ![WhatsApp Image 2024-10-01 at 23 23 57_2003d4d4](https://github.com/user-attachments/assets/6bc89458-b6fb-478d-af02-f86733bdcc0f)
+
 
 ### 5. 🌐 **Multi-Language Support**
 Shubh Yatra is designed for inclusivity, featuring:
